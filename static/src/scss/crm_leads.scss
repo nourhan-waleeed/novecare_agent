@@ -183,5 +183,8 @@
     }
 }
 .o_form_sheet_bg {
-    max-width: 100%;
+    max-width: 100% !important;
 }
+.sideBar .o_wrap_field  .o_cell, .treatInt .o_wrap_field  .o_cell{
+    width: 100% !important;
+    }
