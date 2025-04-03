@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <menuitem id="novecare_menu"
+                  name="NoveCare"
+                  web_icon="novecare_agent/static/src/img/icon.png"
+                  sequence="10"/>
+
+
+
+        <menuitem id="menu_incoming_main"
+                  name="Incoming"
+                  parent="novecare_menu"
+                  sequence="1"/>
+        <menuitem id="menu_incoming_leads"
+                  name="Lead Journey"
+                  parent="menu_incoming_main"
+                  action="action_incoming_leads"
+                  sequence="10"/>
+        <menuitem id="menu_segments"
+                  name="Segments"
+                  parent="menu_incoming_main"
+                  action="action_segments"
+                  sequence="11"/>
+
+
+
+
+    </data>
+
+</odoo>
