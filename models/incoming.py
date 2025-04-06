@@ -80,7 +80,6 @@ class IncomingLeads(models.Model):
                     ]
                 }
                 requests.post(url, json=response)
-                print('request',requests.post(url, json=response))
                 rec.write({
 
                     'chat_history': [(0, 0, {
