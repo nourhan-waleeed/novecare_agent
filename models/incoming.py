@@ -1,7 +1,7 @@
 from odoo import models, fields, api, _
 from markupsafe import Markup
 import requests
-
+import re
 
 class IncomingLeads(models.Model):
     _name = 'incoming.leads'
@@ -69,13 +69,22 @@ class IncomingLeads(models.Model):
 
             if rec.box:
                 print('the message to send',rec.box)
+                clean_message = rec.box
+                if isinstance(clean_message, str):
+                    # Strip outer <p> tags if they exist
+                    clean_message = re.sub(r'^<p>(.*?)</p>$', r'\1', clean_message)
+                    # Also handle multiple paragraphs by replacing inner <p> tags with line breaks
+                    clean_message = re.sub(r'</p>\s*<p>', '\n', clean_message)
+                    # Remove any remaining <p> or </p> tags
+                    clean_message = re.sub(r'</?p>', '', clean_message)
+                    print('clean message:', clean_message)
                 response = {
                     "channelId": channel_id,
                     "recipientId": rec.lead_phone_no,
                     "response": [
                         {
                             "type": "TEXT",
-                            "text": rec.box
+                            "text": clean_message
                         }
                     ]
                 }
