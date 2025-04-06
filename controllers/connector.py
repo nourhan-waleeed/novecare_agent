@@ -7,7 +7,6 @@ import yaml
 import re
 import logging
 
-from sympy import limit
 
 _logger = logging.getLogger(__name__)
 
