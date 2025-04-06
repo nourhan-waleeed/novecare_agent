@@ -13,6 +13,7 @@ class WhatsappWoztell(http.Controller):
 
     @http.route('/lead/generation', type='http', auth='public', methods=['GET', 'POST'], csrf=False)
     def handle_webhook(self, **kw):
+        print('into controller')
         uid = request.session.authenticate('REAL_ESTATE', 'admin', 'admin')
         print('-------------------------------------------data--------------------------------------------')
         requested_data = request.httprequest.data
@@ -26,9 +27,9 @@ class WhatsappWoztell(http.Controller):
 
         if data['type'] == 'TEXT':
             lead = request.env['incoming.leads'].search([('lead_phone_no','=',data['from'])],limit=1)
-
+            print('msg came & searching for chat')
             if lead:
-
+                print('chat was found',lead)
                 lead.write({
                     'chat_history': [(0, 0, {
                         'lead':  data['data']['text'],
