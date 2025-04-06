@@ -26,7 +26,8 @@ class WhatsappWoztell(http.Controller):
 
 
         if data['type'] == 'TEXT':
-            lead = request.env['incoming.leads'].search([('lead_phone_no','=',data['from'])],limit=1)
+            print('phone',data['from'][1:])
+            lead = request.env['incoming.leads'].search([('lead_phone_no','=',data['from'][1:])],limit=1)
             print('msg came & searching for chat')
             if lead:
                 print('chat was found',lead)
