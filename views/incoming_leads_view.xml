@@ -91,7 +91,8 @@
                                     <div class="chat-container">
                                         <field name="html_chat" widget="html"/>
                                         <div class="chat-input-wrapper">
-                                        <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}"/>                                        <button name="send_message" type="object" class="send-button">
+                                        <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}"/>
+                                            <button name="send_message" type="object" class="send-button">
                                             <i class="fa fa-paper-plane"/>
                                         </button>
 
