@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_incoming_leads,incoming_leads,model_incoming_leads,,1,1,1,1
+access_appointment_model,appointment_model,model_appointment_model,,1,1,1,1
+access_segments_model,segments_model,model_segments_model,,1,1,1,1
+access_eval_primary_diagnosis_model,eval_primary_diagnosis_model,model_eval_primary_diagnosis_model,,1,1,1,1
+access_eval_secondary_diagnosis_model,eval_secondary_diagnosis_model,model_eval_secondary_diagnosis_model,,1,1,1,1
+access_eval_chronic_conditions_model,eval_chronic_conditions_model,model_eval_chronic_conditions_model,,1,1,1,1
+access_eval_allergies_model,eval_allergies_model,model_eval_allergies_model,,1,1,1,1
+access_eval_medication_model,eval_medication_model,model_eval_medication_model,,1,1,1,1
+access_eval_family_history_model,eval_family_history_model,model_eval_family_history_model,,1,1,1,1
+access_chat_history,chat_history,model_chat_history,,1,1,1,1

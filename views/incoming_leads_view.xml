@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_incoming_leads_tree" model="ir.ui.view">
+        <field name="name">incoming.leads.tree</field>
+        <field name="model">incoming.leads</field>
+        <field name="arch" type="xml">
+            <tree string="Incoming Leads" sample="1">
+                <field name="lead_first_name"/>
+                <field name="lead_last_name"/>
+                <field name="lead_phone_no"/>
+                <field name="email"/>
+                <field name="stages"/>
+                <field name="segment"/>
+                <field name="source"/>
+                <field name="lead_date"/>
+                <field name="partner_id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_incoming_leads_form" model="ir.ui.view">
+        <field name="name">incoming.leads.form</field>
+        <field name="model">incoming.leads</field>
+        <field name="arch" type="xml">
+            <form string="Incoming Lead">
+                <header>
+                    <button name="action_book_appointment" type="object"
+                            style="background-color: #00796b; border-color: #00796b; color: white;
+                                  border-radius: 25px; padding: 8px 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                                  font-weight: 500; transition: all 0.3s ease;"
+                            class="oe_highlight">
+                        <i class="fa fa-calendar me-2"></i>
+                        Book Appointment
+                    </button>
+                </header>
+                <sheet>
+                    <div class="oe_title" invisible="1">
+                        <h1>
+                            <field name="lead_first_name" placeholder="First Name" style="width: 50%;"/>
+                            <!--                        <field name="lead_last_name" placeholder="Last Name" style="width: 100%;"/>-->
+                        </h1>
+                        <h3 class="text-muted">
+                            <field name="partner_id" readonly="1"/>
+                        </h3>
+                        <field name="segment" placeholder="Segment"/>
+                    </div>
+
+                    <!-- Split screen layout -->
+                    <div style="display: flex; margin-top: 20px;">
+                        <!-- Left column - Contact Panel (30%) with styled border -->
+                        <div style="flex: 0 0 30%; margin-right: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <!-- Teal header -->
+                            <div style="background-color: #00796b; color: white; padding: 15px;">
+                                <div style="display: flex; align-items: center;">
+                                    <div style="width: 50px; height: 50px; background-color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                        <i class="fa fa-user" style="color: #00796b; font-size: 24px;"/>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex fs-4 fw-bold">
+                                            <field name="lead_first_name"/>
+                                            <span class="mx-1"></span>
+                                            <field name="lead_last_name"/>
+                                        </div>
+                                        <div style="font-size: 13px;">ID: DERM-
+                                            <field name="id"/>
+                                        </div>
+                                        <div class="badge"
+                                             style="background-color: #e91e63; color: white; font-size: 16px; padding: 3px 8px; border-radius: 12px; margin-top: 3px;">
+                                            <field name="segment" placeholder="Segment"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background-color: white; padding: 15px;" class="sideBar">
+                                <div style="display: flex; gap: 10px; margin-bottom: 15px; justify-content: center;">
+                                    <button name="original_lead_info" type="object"
+                                            style="flex: 1; border-radius: 50px; background: linear-gradient(145deg, #2979ff, #0d47a1); border: none; color: white; padding: 10px 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                        <i class="fa fa-phone" style="margin-right: 5px;"/>
+                                        Call
+                                    </button>
+                                    <button name="whatsapp_view" type="object"
+                                            style="flex: 1; border-radius: 50px; background: linear-gradient(145deg, #1ed760, #25D366); border: none; color: white; padding: 10px 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                        <i class="fa fa-whatsapp" style="margin-right: 5px;"/>
+                                        Chat
+                                    </button>
+                                </div>
+                                <div class="chat-interface" invisible="not wp_show">
+                                    <div class="chat-container">
+                                        <field name="html_chat" widget="html"/>
+                                        <div class="chat-input-wrapper">
+                                        <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}"/>                                        <button name="send_message" type="object" class="send-button">
+                                            <i class="fa fa-paper-plane"/>
+                                        </button>
+
+                                    </div>
+                                    </div>
+
+                                </div>
+                                <group col="2" colspan="2" invisible="wp_show">
+                                    <group class="w-50">
+                                        <field name="wp_show" invisible="1"/>
+                                        <group string="Phone Number"  class="w-100">
+                                            <field name="lead_phone_no" placeholder="Phone Number" nolabel="1"/>
+                                        </group>
+                                        <group string="Preferred Contact Method"  class="w-100">
+                                            <field name="preferred_contact_method" readonly="1"
+                                                   placeholder="Preferred Contact Method" nolabel="1"/>
+                                        </group>
+                                        <group string="Date of Birth"  class="w-100">
+                                        <field name="lead_dob" placeholder="Date of Birth" readonly="1" nolabel="1"/>
+                                        </group>
+                                        <group string="Stages"  class="w-100">
+                                        <field name="stages" widget="radio" placeholder="Stages" readonly="1"
+                                               nolabel="1"/>
+                                        </group>
+                                    </group>
+                                    <group class="w-50">
+                                        <group string="Email" class="w-100">
+                                            <field name="email" placeholder="Email Address" nolabel="1"/>
+                                        </group>
+                                        <group string="Gender"  class="w-100">
+                                            <field name="lead_gender" placeholder="Gender" readonly="1" nolabel="1"/>
+                                        </group>
+                                         <group string="Assigned Agent"  class="w-100">
+                                        <field name="partner_id" nolabel="1"/>
+                                         </group>
+                                         <group string="Status"  invisible="stages != 'lead'" class="w-100">
+                                        <field name="lead_status" placeholder="Status" readonly="1"
+                                               nolabel="1"/>
+                                         </group>
+                                        <group string="Status"  invisible="stages != 'patient'" class="w-100">
+                                        <field name="patient_status" placeholder="Status" readonly="1"
+                                                nolabel="1"/>
+                                        </group>
+                                        <group string="Status" invisible="stages != 'won'" class="w-100">
+                                        <field name="won_status" placeholder="Status" readonly="1"
+                                               nolabel="1"/>
+                                        </group>
+                                    </group>
+
+
+                                </group>
+                            </div>
+                        </div>
+
+                        <!-- Right column - Main Content (70%) -->
+                        <div style="flex: 1; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div style="background-color: #00796b; color: white; padding: 15px;">
+                                <h3 style="margin: 0; font-size: 16px; color: white;">Lead Information</h3>
+                            </div>
+                            <div style="background-color: white; padding: 15px;">
+<!--                                <field name="stages" widget="statusbar"-->
+<!--                                       statusbar_visible="lead,patient,won" options="{'clickable' : '1'}"/>-->
+
+                                <notebook>
+                                    <page string="Lead Information" name="lead_info">
+                                        <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+                                            <div style="text-align: center;" invisible="stages != 'lead'">
+                                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #00a09d; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                                    <i class="fa fa-user"/>
+                                                </div>
+                                                <div style="margin-top: 5px;">Lead</div>
+                                            </div>
+                                            <div style="text-align: center;" invisible="stages == 'lead'">
+                                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #f1f1f1; color: #6c757d; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                                    <i class="fa fa-user"/>
+                                                </div>
+                                                <div style="margin-top: 5px;">Lead</div>
+                                            </div>
+                                            <div style="text-align: center;" invisible="stages != 'patient'">
+                                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #00a09d; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                                    <i class="fa fa-user-md"/>
+                                                </div>
+                                                <div style="margin-top: 5px;">Patient</div>
+                                            </div>
+                                            <div style="text-align: center;" invisible="stages == 'patient'">
+                                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #f1f1f1; color: #6c757d; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                                    <i class="fa fa-user-md"/>
+                                                </div>
+                                                <div style="margin-top: 5px;">Patient</div>
+                                            </div>
+                                            <div style="text-align: center;" invisible="stages != 'won'">
+                                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #00a09d; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                                    <i class="fa fa-check-circle"/>
+                                                </div>
+                                                <div style="margin-top: 5px;">Closed Won</div>
+                                            </div>
+                                            <div style="text-align: center;" invisible="stages == 'won'">
+                                                <div style="width: 50px; height: 50px; border-radius: 50%; background-color: #f1f1f1; color: #6c757d; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                                    <i class="fa fa-check-circle"/>
+                                                </div>
+                                                <div style="margin-top: 5px;">Closed Won</div>
+                                            </div>
+                                        </div>
+
+                                        <group>
+                                            <group string="Stage Information" class="w-50">
+                                                <field name="stages" string="Stage"/>
+                                                <field name="lead_status" invisible="stages != 'lead'"
+                                                       string="Lead Status"/>
+                                                <field name="patient_status" invisible="stages != 'patient'"
+                                                       string="Patient Status"/>
+                                                <field name="won_status" invisible="stages != 'won'"
+                                                       string="Won Status"/>
+                                                <field name="segment" string="Segment"/>
+                                            </group>
+                                            <group string="Additional Details" class="w-50">
+                                                <field name="source" string="Source"/>
+                                                <field name="lead_date" string="Lead Date"/>
+                                                <field name="reason" string="Reason"/>
+                                                <field name="partner_id" string="Assigned Agent"/>
+                                            </group>
+                                        </group>
+
+                                        <group string="TREATMENT INTEREST"  class="treatInt">
+                                            <group class="w-100 flex-column d-flex">
+                                            <field name="reason_for_visit" nolabel="1"
+                                                   placeholder="Describe treatment interests, concerns, and inquiry details..."/>
+                                            </group>
+                                        </group>
+                                    </page>
+
+                                    <page string="Lead Demographics" name="demographics">
+                                        <group>
+                                            <group string="Personal Information" class="w-50">
+                                                <field name="lead_first_name" string="First Name"/>
+                                                <field name="lead_last_name" string="Last Name"/>
+                                                <field name="lead_gender" string="Gender"/>
+                                                <field name="lead_dob" string="Date of Birth"/>
+                                            </group>
+                                            <group string="Contact Information" class="w-50">
+                                                <field name="lead_phone_no" widget="phone" string="Phone Number"/>
+                                                <field name="email" widget="email" string="Email"/>
+                                                <field name="preferred_contact_method"
+                                                       string="Preferred Contact Method"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page string="Lead Chat History">
+                                            <field name="chat_history">
+                                                <tree editable="bottom">
+                                                    <field name="agent"/>
+                                                    <field name="lead"/>
+                                                    <field name="timestamp"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+
+                                </notebook>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+<!--                <div class="oe_chatter">-->
+<!--                    <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                    <field name="activity_ids" widget="mail_activity"/>-->
+<!--                    <field name="message_ids" widget="mail_thread"/>-->
+<!--                </div>-->
+            </form>
+        </field>
+    </record>
+    <record id="view_incoming_leads_kanban" model="ir.ui.view">
+        <field name="name">incoming.leads.kanban</field>
+        <field name="model">incoming.leads</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stages" class="o_kanban_small_column" sample="1"
+                    quick_create="false" records_draggable="1">
+                <field name="lead_first_name"/>
+                <field name="lead_last_name"/>
+                <field name="lead_phone_no"/>
+                <field name="email"/>
+                <field name="stages"/>
+                <field name="lead_status"/>
+                <field name="patient_status"/>
+                <field name="won_status"/>
+                <field name="segment"/>
+                <field name="source"/>
+                <field name="lead_date"/>
+                <field name="partner_id"/>
+                <field name="lead_gender"/>
+                <field name="lead_dob"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                            <div class="o_kanban_image_fill_left d-none d-md-block"
+                                 t-attf-style="background-color: #{kanban_color(record.stages.raw_value)}">
+                                <div class="o_kanban_image d-flex align-items-center justify-content-center">
+                                    <i t-if="record.lead_gender.raw_value == 'Male'"
+                                       class="fa fa-male fa-3x text-white"/>
+                                    <i t-elif="record.lead_gender.raw_value == 'Female'"
+                                       class="fa fa-female fa-3x text-white"/>
+                                    <i t-else="" class="fa fa-user fa-3x text-white"/>
+                                </div>
+                                <div class="o_kanban_image_overlay p-2">
+                                    <span class="badge rounded-pill text-white"
+                                          t-attf-style="background-color: #dc3545;">
+                                        <t t-esc="record.segment.value"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_details d-flex flex-column">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <t t-esc="record.lead_first_name.value"/> <t t-esc="record.lead_last_name.value"/>
+                                        </strong>
+                                        <small class="text-muted">
+                                            <i class="fa fa-phone-alt me-1"/>
+                                            <t t-esc="record.lead_phone_no.value"/>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body mt-2">
+                                    <div t-if="record.stages.raw_value == 'lead'">
+                                        <strong class="text-primary">Status:</strong>
+                                        <t t-esc="record.lead_status.value"/>
+                                    </div>
+                                    <div t-elif="record.stages.raw_value == 'patient'">
+                                        <strong class="text-success">Status:</strong>
+                                        <t t-esc="record.patient_status.value"/>
+                                    </div>
+                                    <div t-elif="record.stages.raw_value == 'won'">
+                                        <strong class="text-success">Status:</strong>
+                                        <t t-esc="record.won_status.value"/>
+                                    </div>
+                                    <div class="mt-1">
+                                        <small t-if="record.source.value"><i class="fa fa-hashtag me-1"/>Source:
+                                            <t t-esc="record.source.value"/>
+                                        </small>
+                                    </div>
+                                    <div class="mt-1">
+                                        <small t-if="record.lead_date.value"><i class="fa fa-calendar me-1"/>Lead Date:
+                                            <t t-esc="record.lead_date.value"/>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom mt-2">
+                                    <div class="oe_kanban_bottom_left">
+                                        <small><i class="fa fa-user-tie me-1"/>Call Center Agent:
+                                            <t t-esc="record.partner_id.value"/>
+                                        </small>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <a name="whatsapp_view" type="object" class="btn btn-sm btn-success">
+                                            <i class="fa fa-whatsapp"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_incoming_leads_search" model="ir.ui.view">
+        <field name="name">incoming.leads.search</field>
+        <field name="model">incoming.leads</field>
+        <field name="arch" type="xml">
+            <search string="Search Incoming Leads">
+                <field name="lead_first_name"/>
+                <field name="lead_last_name"/>
+                <field name="lead_phone_no"/>
+                <field name="email"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter string="Leads" name="stage_lead" domain="[('stages', '=', 'lead')]"/>
+                <filter string="Patients" name="stage_patient" domain="[('stages', '=', 'patient')]"/>
+                <filter string="Closed Won" name="stage_won" domain="[('stages', '=', 'won')]"/>
+                <separator/>
+                <filter string="Need Second Call" name="status_2nd_call"
+                        domain="[('lead_status', '=', 'need_2nd_call')]"/>
+                <filter string="Need Third Call" name="status_3rd_call"
+                        domain="[('lead_status', '=', 'need_3rd_call')]"/>
+                <filter string="Book Appointment" name="status_book_appointment"
+                        domain="[('lead_status', '=', 'book_appointment')]"/>
+                <separator/>
+                <filter string="High Price" name="segment_high_price" domain="[('segment.name', '=', 'High Price')]"/>
+                <separator/>
+                <filter string="My Leads" name="my_leads" domain="[('partner_id', '=', uid)]"/>
+                <filter string="Leads Created Today" name="created_today"
+                        domain="[('create_date', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Stage" name="group_by_stage" domain="[]" context="{'group_by': 'stages'}"/>
+                    <filter string="Status (Lead)" name="group_by_lead_status" domain="[('stages', '=', 'lead')]"
+                            context="{'group_by': 'lead_status'}"/>
+                    <filter string="Status (Patient)" name="group_by_patient_status"
+                            domain="[('stages', '=', 'patient')]" context="{'group_by': 'patient_status'}"/>
+                    <filter string="Status (Won)" name="group_by_won_status" domain="[('stages', '=', 'won')]"
+                            context="{'group_by': 'won_status'}"/>
+                    <filter string="Segment" name="group_by_segment" domain="[]" context="{'group_by': 'segment'}"/>
+                    <filter string="Source" name="group_by_source" domain="[]" context="{'group_by': 'source'}"/>
+                    <filter string="Lead Date" name="group_by_lead_date" domain="[]"
+                            context="{'group_by': 'lead_date'}"/>
+                    <filter string="Assigned Agent" name="group_by_agent" domain="[]"
+                            context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_incoming_leads" model="ir.actions.act_window">
+        <field name="name">Lead Journey</field>
+        <field name="res_model">incoming.leads</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_incoming_leads_search"/>
+        <!-- Default search filter removed as requested -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first lead!
+            </p>
+            <p>
+                Track potential patients through their journey from lead to patient.
+            </p>
+        </field>
+    </record>
+    <record id="action_segments" model="ir.actions.act_window">
+        <field name="name">Lead Journey</field>
+        <field name="res_model">incoming.leads</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_incoming_leads_search"/>
+        <field name="context">{'search_default_group_by_segment': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first lead!
+            </p>
+            <p>
+                Track potential patients through their journey from lead to patient.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="action_book_appointment_wizard" model="ir.actions.act_window">
+        <field name="name">Book Appointment</field>
+        <field name="res_model">appointment.model</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_lead_id': active_id}</field>
+    </record>
+</odoo>

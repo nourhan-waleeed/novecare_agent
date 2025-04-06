@@ -1,0 +1,331 @@
+// Styles for incoming leads form view
+.o_incoming_leads_form {
+    // Container for the split layout
+    .o_lead_container {
+        display: flex;
+        margin-top: 20px;
+    }
+
+    // Left panel (contact information)
+    .o_lead_left_panel {
+        flex: 0 0 30%;
+        padding-right: 20px;
+        border-right: 1px solid #dee2e6;
+        margin-right: 20px;
+    }
+
+    // Right panel (main content)
+    .o_lead_right_panel {
+        flex: 1;
+    }
+
+    // Action buttons at the top of the left panel
+    .o_action_buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+
+        .btn {
+            flex: 1;
+        }
+
+        .o_whatsapp_btn {
+            background-color: #25D366;
+            border-color: #25D366;
+
+            &:hover {
+                background-color: darken(#25D366, 10%);
+                border-color: darken(#25D366, 10%);
+            }
+        }
+    }
+
+    // Stage progress visualization
+    .o_stage_progress {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+
+        .o_stage_item {
+            text-align: center;
+        }
+
+        .o_stage_circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .o_active_stage {
+            background-color: #00a09d;
+            color: white;
+        }
+
+        .o_stage_label {
+            margin-top: 5px;
+        }
+    }
+
+    // Treatment interest section
+    .o_treatment_interest {
+        margin-top: 20px;
+    }
+
+    // Custom field sizes
+    .oe_title {
+        h1 {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.o_kanban_view {
+    .o_kanban_record {
+        &[data-stages="lead"] {
+            border-left: 4px solid #ffc107;
+        }
+
+        &[data-stages="patient"] {
+            border-left: 4px solid #28a745;
+        }
+
+        &[data-stages="won"] {
+            border-left: 4px solid #17a2b8;
+        }
+    }
+}
+
+
+// chat interface
+.chat-interface {
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wp-message-agent-name {
+    font-weight: bold;
+    font-size: 10px;
+    margin-bottom: 1px;
+    color: #075E54;  /* WhatsApp dark teal color */
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    background: #f8f9ff;
+    border-bottom: 1px solid #eef1f8;
+}
+
+div[name="chat"] {
+    margin-bottom: 0px !important;
+}
+
+.o_form_sheet_bg {
+    max-width: 100% !important;
+}
+
+.header-avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+}
+
+.header-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #2d3748;
+}
+
+.header-info .status {
+    font-size: 13px;
+    color: #48bb78;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background: #ffffff;
+    justify-content: flex-end; /* Aligns content to bottom */
+    scroll-behavior: smooth; /* Adds smooth scrolling */
+}
+
+.message-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.message-wrapper.user-message {
+    justify-content: flex-end;
+}
+
+.message-wrapper .avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+}
+
+.message-wrapper .avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.message {
+    max-width: 70%;
+}
+
+.message-content {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.user-message .message-content {
+    background: #00796b; /* Teal color */
+    color: white;
+    border-radius: 12px 12px 0 12px;
+}
+
+.assistant-message .message-content {
+    background: #f3f4f6;
+    color: #1f2937;
+    border-radius: 12px 12px 12px 0;
+}
+
+.message-meta {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.message-meta .time {
+    margin-right: 6px;
+}
+
+.message-meta .status {
+    color: #00796b; /* Teal color */
+}
+
+.chat-input-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    background: #f8f9ff;
+    border-top: 1px solid #eef1f8;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.chat-input:focus {
+    border-color: #00796b;
+}
+
+.send-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 12px;
+    background: #00796b;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.send-button:hover {
+    background: #005a4f;
+}
+
+.send-button i {
+    font-size: 16px;
+}
+
+/* Scrollbar Styling */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Loading Animation */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    background: #00796b;
+    border-radius: 50%;
+    animation: typing 1s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.sideBar .o_wrap_field .o_cell, .treatInt .o_wrap_field .o_cell {
+    width: 100% !important;
+}
