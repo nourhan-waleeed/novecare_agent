@@ -78,9 +78,10 @@ class IncomingLeads(models.Model):
                     # Remove any remaining <p> or </p> tags
                     clean_message = re.sub(r'</?p>', '', clean_message)
                     print('clean message:', clean_message)
+                    phone = f"2{rec.lead_phone_no}"
                 response = {
                     "channelId": channel_id,
-                    "recipientId": rec.lead_phone_no,
+                    "recipientId": phone,
                     "response": [
                         {
                             "type": "TEXT",
