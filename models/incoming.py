@@ -54,7 +54,7 @@ class IncomingLeads(models.Model):
         # create an appointment
         pass
 
-
+    # chating
     chat_history = fields.One2many('chat.history','incoming', string ='Chat')
     box = fields.Html(string='Message Box')
     html_chat = fields.Html(string='Chat Display', compute='chat_interface', sanitize=False)
