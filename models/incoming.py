@@ -2,7 +2,7 @@ from odoo import models, fields, api, _
 from markupsafe import Markup
 import requests
 import re
-
+import json
 class IncomingLeads(models.Model):
     _name = 'incoming.leads'
     _description = 'Incoming Leads'
@@ -122,19 +122,17 @@ class IncomingLeads(models.Model):
                     })]
                 })
             if rec.json_msg:
+                template_json = json.loads(rec.json_msg)
 
                 phone = f"2{rec.lead_phone_no}"
-                start = "{"
-                response = f"""
-                    "channelId": {channel_id},
-                    "recipientId": {phone},
-                    "response": [ {rec.json_msg} ]
+                response_data = {
+                    "channelId": channel_id,
+                    "recipientId": phone,
+                    "response": [template_json]
+                }
 
 
-                """
-                close="}"
-                complete_response = f"{start}{response}{close}"
-                requests.post(url, json=complete_response)
+                requests.post(url, json=response_data)
                 rec.write({
 
                     'chat_history': [(0, 0, {

@@ -54,7 +54,6 @@ class MessageTemplate(models.Model):
                     "type": "text",
                     "text": rec.header
                 },
-                "signature": "Zl9tTDsdz59OI5eZ3k3GVf0PHPaZCJbHWx4ve5rSZIY="
             }
 
             temp = json.dumps(whatsapp_list, ensure_ascii=False, indent=4)
