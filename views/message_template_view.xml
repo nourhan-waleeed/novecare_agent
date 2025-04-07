@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_message_template_form" model="ir.ui.view">
+        <field name="name">message.template.form</field>
+        <field name="model">message.template</field>
+        <field name="arch" type="xml">
+            <form string="Message Template">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Select Template Type"/>
+                        </h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <group>
+
+                                <field name="template_name" placeholder="Name your template.."/>
+                                <field name="header" placeholder="Enter header text"/>
+                                <field name="title" placeholder="Enter message title/body"/>
+                                <field name="button_title" placeholder="Enter button text"/>
+                                <field name="section_title" placeholder="Enter section title"/>
+                            </group>
+
+                            <separator string="Buttons" />
+                            <field name="buttons">
+                                <tree editable="bottom">
+                                    <field name="title" required="1"/>
+                                </tree>
+                            </field>
+                        </div>
+
+                        <div class="col-md-7">
+                            <notebook>
+                                <page string="Template Preview">
+                                    <field name="html_preview" widget="html"/>
+                                </page>
+                                <page string="Generated JSON">
+                                    <field name="computed_json" widget="html"/>
+                                </page>
+
+                            </notebook>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_message_template_tree" model="ir.ui.view">
+        <field name="name">message.template.tree</field>
+        <field name="model">message.template</field>
+        <field name="arch" type="xml">
+            <tree string="Message Templates">
+                <field name="name"/>
+                <field name="template_name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_message_template" model="ir.actions.act_window">
+        <field name="name">Message Templates</field>
+        <field name="res_model">message.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new WhatsApp message template
+            </p>
+            <p>
+                Configure different types of templates for WhatsApp messages including list messages, reply buttons, and simple text messages.
+            </p>
+        </field>
+    </record>
+</odoo>

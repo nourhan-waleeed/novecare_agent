@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Appointment Form View -->
+    <record id="view_appointment_form" model="ir.ui.view">
+        <field name="name">appointment.model.form</field>
+        <field name="model">appointment.model</field>
+        <field name="arch" type="xml">
+            <form string="Book Appointment">
+                <header>
+<!--                    <button name="confirm_appointment" string="Confirm" type="object" class="oe_highlight" states="draft"/>-->
+<!--                    <button name="cancel_appointment" string="Cancel" type="object" states="draft,confirmed"/>-->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="appointment_container">
+
+                        <div class="appointment_section">
+                            <div class="section_title">
+                                <h3>Patient Information</h3>
+                            </div>
+                            <div class="section_content">
+                                <group col="4">
+                                    <field name="lead_first_name" placeholder="First Name" required="1" string="First Name"/>
+                                    <field name="lead_last_name" placeholder="Last Name" required="1" string="Last Name"/>
+                                    <field name="lead_gender" widget="radio" required="1"/>
+                                    <field name="lead_dob" placeholder="MM/DD/YYYY" required="1" string="Date of Birth"/>
+                                    <field name="lead_phone_no" placeholder="+1 (555) 123-4567" required="1" string="Phone Number"/>
+                                    <field name="email" placeholder="email@example.com" required="1" string="Email"/>
+                                </group>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Medical Information -->
+                        <div class="appointment_section">
+                            <div class="section_title">
+                                <h3>Medical Information</h3>
+                            </div>
+                            <div class="section_content">
+                                <group col="4">
+                                    <field name="smoker" widget="boolean_toggle"/>
+                                    <field name="alcoholic" widget="boolean_toggle"/>
+                                    <field name="insurance_provider" placeholder="e.g. Blue Cross"/>
+                                </group>
+                                <group>
+                                    <group class="full_width">
+                                        <label for="reason_for_visit" string="Reason for Visit"/>
+                                        <field name="reason_for_visit" placeholder="Describe the reason for your visit" required="1" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group class="full_width">
+                                        <label for="allergies" string="Allergies"/>
+                                        <field name="allergies" widget="many2many_tags" placeholder="List any allergies" nolabel="1"/>
+                                    </group>
+                                </group>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Appointment Details -->
+                        <div class="appointment_section">
+                            <div class="section_title">
+                                <h3>Appointment Details</h3>
+                            </div>
+                            <div class="section_content">
+                                <group col="4">
+                                    <field name="appointment_date" widget="date" required="1" string="Date"/>
+                                    <field name="partner_id" options="{'no_create': True}" required="1" string="Healthcare Provider"/>
+                                    <field name="doctor" required="1" string="Doctor"/>
+                                    <field name="clinic" required="1" string="Clinic"/>
+<!--                                    <field name="appointment_type" widget="radio" required="1" string="Appointment Type"/>-->
+                                </group>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Appointment Tree View -->
+    <record id="view_appointment_tree" model="ir.ui.view">
+        <field name="name">appointment.model.tree</field>
+        <field name="model">appointment.model</field>
+        <field name="arch" type="xml">
+            <tree string="Appointments" decoration-info="state=='draft'" decoration-success="state=='confirmed'" decoration-muted="state=='cancelled'">
+                <field name="lead_first_name"/>
+                <field name="lead_last_name"/>
+                <field name="appointment_date"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Appointment Action -->
+    <record id="action_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointment.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Schedule a new appointment
+            </p>
+        </field>
+    </record>
+
+
+</odoo>

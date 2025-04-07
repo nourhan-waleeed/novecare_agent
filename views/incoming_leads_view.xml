@@ -87,11 +87,18 @@
                                         Chat
                                     </button>
                                 </div>
+                                <div>
+                                    <group>
+                                        <field name="use_temp" invisible="not wp_show"/>
+                                        <field name = "template" invisible="not wp_show or not use_temp"/>
+                                    </group>
+                                </div>
                                 <div class="chat-interface" invisible="not wp_show">
                                     <div class="chat-container">
                                         <field name="html_chat" widget="html"/>
                                         <div class="chat-input-wrapper">
-                                        <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}"/>
+                                        <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}" invisible="use_temp"/>
+                                         <field name = "json_msg"  class="chat-input" options="{'collaborative': false, 'resizable': false}" invisible="not use_temp"/>
                                             <button name="send_message" type="object" class="send-button">
                                             <i class="fa fa-paper-plane"/>
                                         </button>

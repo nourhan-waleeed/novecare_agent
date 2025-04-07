@@ -10,6 +10,8 @@
         'security/ir.model.access.csv',
         # 'security/security.xml',
         'views/incoming_leads_view.xml',
+        'views/appointment_view.xml',
+        'views/message_template_view.xml',
         'views/menus.xml',
 
     ],
@@ -20,6 +22,7 @@
     'assets': {
         'web.assets_backend': [
             '/novecare_agent/static/src/scss/crm_leads.scss',
+            '/novecare_agent/static/src/scss/appointment_styles.scss',
         ],
     },
 }

@@ -25,8 +25,11 @@
                   action="action_segments"
                   sequence="11"/>
 
+    <menuitem id="menu_appointment" name="Appointments" parent="novecare_menu" action="action_appointment" sequence="3"/>
+    <menuitem id="menu_configuration" name="Configuration" parent="novecare_menu"  sequence="4"/>
 
 
+    <menuitem id="menu_message_template" name="Message Templates" parent="menu_configuration" action="action_message_template" sequence="1"/>
 
     </data>
 

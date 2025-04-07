@@ -10,3 +10,9 @@ access_eval_allergies_model,eval_allergies_model,model_eval_allergies_model,,1,1
 access_eval_medication_model,eval_medication_model,model_eval_medication_model,,1,1,1,1
 access_eval_family_history_model,eval_family_history_model,model_eval_family_history_model,,1,1,1,1
 access_chat_history,chat_history,model_chat_history,,1,1,1,1
+access_doctor_model,doctor_model,model_doctor_model,,1,1,1,1
+access_clinic_model,clinic_model,model_clinic_model,,1,1,1,1
+access_insurance_provider,insurance_provider,model_insurance_provider,,1,1,1,1
+access_message_template,message_template,model_message_template,,1,1,1,1
+access_message_template,message_template,model_message_template,,1,1,1,1
+access_buttons,buttons,model_buttons,,1,1,1,1

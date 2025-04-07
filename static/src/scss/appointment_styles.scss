@@ -1,0 +1,196 @@
+/* Appointment Form Styles */
+.appointment_container {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 20px 0;
+    background-color: #fff;
+}
+
+/* Progress Steps at the Top */
+.appointment_steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #6c757d;
+    position: relative;
+
+    &:not(:last-child):after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -30px;
+        width: 60px;
+        height: 1px;
+        background-color: #e0e0e0;
+    }
+}
+
+.step_number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #009688;
+    color: white;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+.step_name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Section Styling */
+.appointment_section {
+    margin-bottom: 30px;
+    padding: 0 10px 20px;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.section_title {
+    margin-bottom: 20px;
+
+    h3 {
+        color: #009688;
+        font-size: 18px;
+        margin: 0;
+        font-weight: 500;
+        padding-left: 10px;
+        border-left: 3px solid #009688;
+    }
+}
+
+.section_content {
+    padding: 0 10px;
+}
+
+/* Form Field Styling */
+.o_form_label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.o_field_widget {
+    margin-bottom: 10px;
+}
+
+input, textarea, select {
+    &::placeholder {
+        color: #adb5bd;
+        font-style: italic;
+    }
+
+    &:focus {
+        border-color: #009688 !important;
+        box-shadow: 0 0 0 0.2rem rgba(0, 150, 136, 0.25) !important;
+    }
+}
+
+/* Full width elements */
+.full_width {
+    width: 100%;
+}
+
+/* Terms box styling */
+.terms_box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    p {
+        margin-bottom: 15px;
+        color: #6c757d;
+        font-size: 14px;
+    }
+}
+
+/* Button styling */
+.form_buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btn-primary, button.btn-primary {
+    background-color: #009688 !important;
+    border-color: #009688 !important;
+    color: white !important;
+    padding: 8px 20px;
+    font-weight: 500;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: #00796b !important;
+        border-color: #00796b !important;
+    }
+}
+
+/* Radio button and toggle styling */
+.o_field_widget.o_field_radio .o_radio_item {
+    margin-right: 15px;
+
+    > input:checked + label:before {
+        border-color: #009688;
+        background: #009688;
+    }
+}
+
+.o_field_boolean_toggle .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #009688;
+    border-color: #009688;
+}
+
+/* Many2many tags field styling */
+.o_field_many2many_tags .badge {
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: normal;
+    margin-right: 5px;
+    padding: 5px 10px;
+
+    &.o_tag_color_0 {
+        background-color: #E0F2F1;
+        color: #004D40;
+    }
+}
+
+/* Date picker styling */
+.o_datepicker .o_datepicker_input {
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .appointment_steps {
+        flex-direction: column;
+
+        .step {
+            margin-bottom: 10px;
+
+            &:not(:last-child):after {
+                display: none;
+            }
+        }
+    }
+
+    .o_group {
+        display: block !important;
+    }
+}
