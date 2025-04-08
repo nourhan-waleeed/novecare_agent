@@ -41,6 +41,7 @@ class IncomingLeads(models.Model):
     use_temp = fields.Boolean(string='Use Message Template',default=False)
     template = fields.Many2one('message.template')
     json_msg = fields.Html(related ='template.computed_json')
+    html_preview = fields.Html(related ='template.html_preview')
 
     def whatsapp_view(self):
         for rec in self:
@@ -133,7 +134,7 @@ class IncomingLeads(models.Model):
                 rec.write({
 
                     'chat_history': [(0, 0, {
-                        'agent': rec.json_msg,
+                        'agent': rec.html_preview,
                         'timestamp': fields.Datetime.now(),
                         "is_send_by_user": True
                     })]
@@ -255,8 +256,8 @@ class Segments(models.Model):
 class ChatHistory(models.Model):
     _name = "chat.history"
 
-    lead = fields.Html(string= 'Lead')
-    agent = fields.Html(string= 'Agent')
+    lead = fields.Html(string= 'Lead',sanitize=False)
+    agent = fields.Html(string= 'Agent',sanitize=False)
 
     incoming = fields.Many2one('incoming.leads')
     is_send_by_user = fields.Boolean(string = 'sent by user',default=False)
