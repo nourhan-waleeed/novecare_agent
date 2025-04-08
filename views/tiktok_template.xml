@@ -1,5 +1,5 @@
 <odoo>
-    <template id="instagram_lead_form">
+    <template id="tiktok_lead_form">
         <html lang="en">
             <head>
                 <meta charset="UTF-8"/>
@@ -12,18 +12,19 @@
                         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                         crossorigin="anonymous"></script>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-                <title>Instagram Lead Form</title>
+                <title>TikTok Lead Form</title>
                 <style>
                     body {
-                        background-color: #FAFAFA;
+                        background-color: #010101;
                         font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                        color: #ffffff;
                     }
 
                     .main-container {
                         max-width: 850px;
-                        background-color: white;
+                        background-color: #121212;
                         border-radius: 20px;
-                        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+                        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
                         padding: 2.5rem;
                     }
 
@@ -38,13 +39,13 @@
                         display: block;
                         width: 100px;
                         height: 3px;
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        background: linear-gradient(90deg, #FF0050, #00F2EA);
                         margin: 1.5rem auto 0;
                         border-radius: 3px;
                     }
 
-                    .instagram-gradient {
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                    .tiktok-gradient {
+                        background: linear-gradient(90deg, #FF0050, #00F2EA);
                         -webkit-background-clip: text;
                         background-clip: text;
                         color: transparent;
@@ -63,13 +64,13 @@
                         padding: 2.5rem 2rem 2rem;
                         margin-bottom: 3rem;
                         position: relative;
-                        background-color: white;
-                        box-shadow: 0 5px 20px rgba(193, 53, 132, 0.08);
+                        background-color: #1a1a1a;
+                        box-shadow: 0 5px 20px rgba(255, 0, 80, 0.08);
                     }
 
                     div.sub-title {
                         width: max-content;
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        background: linear-gradient(90deg, #FF0050, #00F2EA);
                         padding: 12px 50px;
                         border-radius: 30px;
                         position: absolute;
@@ -77,7 +78,7 @@
                         color: white;
                         top: -25px;
                         transform: translate(-50%, 0);
-                        box-shadow: 0 5px 15px rgba(193, 53, 132, 0.3);
+                        box-shadow: 0 5px 15px rgba(255, 0, 80, 0.3);
                     }
 
                     div.sub-title h3 {
@@ -88,7 +89,7 @@
                     }
 
                     .form_container .row label {
-                        color: #555;
+                        color: #e6e6e6;
                         margin-bottom: 8px;
                         font-weight: 500;
                         font-size: 0.95rem;
@@ -98,23 +99,25 @@
                     .form_container .row select,
                     .form_container .row textarea {
                         margin-bottom: 20px;
-                        border: solid 1px #E1E1E1;
+                        border: solid 1px #333333;
                         border-radius: 10px;
                         padding: 12px 15px;
                         transition: all 0.3s ease;
-                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                        background-color: #2a2a2a;
+                        color: #ffffff;
                     }
 
                     .form_container .row input:focus,
                     .form_container .row select:focus,
                     .form_container .row textarea:focus {
-                        border-color: #C13584;
+                        border-color: #FF0050;
                         outline: none;
-                        box-shadow: 0 0 0 3px rgba(193, 53, 132, 0.1);
+                        box-shadow: 0 0 0 3px rgba(255, 0, 80, 0.1);
                     }
 
                     .submitButton {
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4);
+                        background: linear-gradient(90deg, #FF0050, #00F2EA);
                         color: white;
                         width: 220px;
                         padding: 13px;
@@ -124,16 +127,16 @@
                         font-size: 1.1rem;
                         letter-spacing: 0.5px;
                         transition: all 0.3s ease;
-                        box-shadow: 0 5px 20px rgba(193, 53, 132, 0.3);
+                        box-shadow: 0 5px 20px rgba(255, 0, 80, 0.3);
                     }
 
                     .submitButton:hover {
                         transform: translateY(-3px);
-                        box-shadow: 0 8px 25px rgba(193, 53, 132, 0.4);
+                        box-shadow: 0 8px 25px rgba(255, 0, 80, 0.4);
                     }
 
                     .required-field {
-                        color: #E1306C;
+                        color: #FF0050;
                         font-weight: bold;
                         margin-left: 3px;
                     }
@@ -147,8 +150,21 @@
                         right: 15px;
                         top: 50%;
                         transform: translateY(-50%);
-                        color: #C13584;
-                        opacity: 0.5;
+                        color: #00F2EA;
+                        opacity: 0.7;
+                    }
+
+                    option {
+                        background-color: #2a2a2a;
+                        color: #ffffff;
+                    }
+
+                    ::placeholder {
+                        color: #aaaaaa;
+                    }
+
+                    .text-muted {
+                        color: #aaaaaa !important;
                     }
 
                     @media (max-width: 768px) {
@@ -170,12 +186,12 @@
                 <div class="container my-5">
                     <div class="main-container mx-auto">
                         <div class="form-header">
-<!--                            <img src="/novecare_agent/static/src/img/instagram.png" alt="Instagram" class="form-logo"/>-->
-                            <h2>Book Your <span class="instagram-gradient">Skin &amp; Beauty Consultation</span></h2>
+                            <!-- <img src="/novecare_agent/static/src/img/tiktok.png" alt="TikTok" class="form-logo"/> -->
+                            <h2>Book Your <span class="tiktok-gradient">Skin &amp; Beauty Consultation</span></h2>
                             <p class="text-muted mt-2">Fill out this form for a personalized dermatology assessment. Our specialized beauty consultant will call you to discuss your skincare needs.</p>
                         </div>
 
-                        <form role="form" action="/instagram/lead/submit" method="POST">
+                        <form role="form" action="/tiktok/lead/submit" method="POST">
                             <div class="form_container">
                                 <div class="sub-title mx-auto">
                                     <h3><i class="fas fa-spa me-2"></i> Your Beauty Profile</h3>
@@ -252,7 +268,7 @@
         </html>
     </template>
 
-    <template id="instagram_lead_confirmation">
+    <template id="tiktok_lead_confirmation">
         <html lang="en">
             <head>
                 <meta charset="UTF-8"/>
@@ -268,8 +284,9 @@
                 <title>Thank You</title>
                 <style>
                     body {
-                        background-color: #FAFAFA;
+                        background-color: #010101;
                         font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                        color: #ffffff;
                     }
 
                     .confirmation-container {
@@ -279,13 +296,13 @@
                         border-radius: 20px;
                         max-width: 600px;
                         text-align: center;
-                        background-color: white;
-                        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+                        background-color: #121212;
+                        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
                     }
 
                     .confirmation-header {
                         font-size: 28px;
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4);
+                        background: linear-gradient(90deg, #FF0050, #00F2EA);
                         -webkit-background-clip: text;
                         background-clip: text;
                         color: transparent;
@@ -295,7 +312,7 @@
 
                     .confirmation-icon {
                         font-size: 5rem;
-                        color: #4CAF50;
+                        color: #00F2EA;
                         margin-bottom: 25px;
                         animation: pulse 2s infinite;
                     }
@@ -319,7 +336,7 @@
                     }
 
                     .lead-text {
-                        color: #555;
+                        color: #e6e6e6;
                         font-size: 1.1rem;
                         line-height: 1.6;
                     }
@@ -327,7 +344,7 @@
                     .contact-info {
                         margin-top: 30px;
                         padding: 15px;
-                        background: linear-gradient(90deg, rgba(193, 53, 132, 0.05), rgba(131, 58, 180, 0.05));
+                        background: linear-gradient(90deg, rgba(255, 0, 80, 0.1), rgba(0, 242, 234, 0.1));
                         border-radius: 10px;
                     }
                 </style>
@@ -335,7 +352,7 @@
             <body>
                 <div class="container my-5">
                     <div class="confirmation-container">
-<!--                        <img src="/novecare_agent/static/src/img/instagram_logo.png" alt="Instagram" class="form-logo"/>-->
+                        <!-- <img src="/novecare_agent/static/src/img/tiktok_logo.png" alt="TikTok" class="form-logo"/> -->
                         <div class="confirmation-icon">
                             <i class="fas fa-check-circle"></i>
                             <!-- Fallback if FontAwesome is not available -->

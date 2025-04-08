@@ -7,9 +7,8 @@ class IncomingLeads(models.Model):
     _name = 'incoming.leads'
     _description = 'Incoming Leads'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _inherits = {'res.partner': 'partner_id'}
 
-    partner_id = fields.Many2one('res.partner',string = 'Assigned Agent', tracking = True)
+    partner_id = fields.Many2one('res.users',string = 'Call Center Agent', tracking = True)
     stages = fields.Selection([('lead','Lead'),('patient','Patient'),('won','Closed Won')],string = 'Stages',tracking = True)
     lead_status = fields.Selection([('expected_patient','Expected Patient'),('need_2nd_call','Need Second Call'),('need_3rd_call','Need Third Call'),
                                     ('closed_lost','Closed Lost'),('book_appointment','Book Appointment'),('confirmed','Confirmed')
@@ -159,7 +158,6 @@ class IncomingLeads(models.Model):
                     </div>
                     <div class="chat-messages" id="chat-messages">
             ''']
-
             for msg in record.chat_history:
                 if msg.lead:
                     html.append(f'''
@@ -174,15 +172,14 @@ class IncomingLeads(models.Model):
                         </div>
                     ''')
                 if msg.agent:
-                    if  msg.is_send_by_user:
+                    if msg.is_send_by_user:
                         html.append(f'''
                             <div class="message-wrapper assistant-message">
                                 <div class="avatar">
-                                    <img src="/booking/static/src/img/bot-avatar.png" alt="Assistant"/>
+                                    <img src="/novecare_agent/static/src/img/avatar.png" alt="Assistant"/>
                                 </div>
                                 <div class="message">
                                     <div class="wp-message-agent-name">{record.partner_id.name}</div>
-
                                     <div class="message-content">{msg.agent}</div>
                                     <div class="message-meta">
                                         <span class="time">{msg.create_date.strftime('%I:%M %p')}</span>
@@ -206,16 +203,7 @@ class IncomingLeads(models.Model):
                             </div>
                         ''')
 
-
-
-                html.append('''
-                        </div>
-
-                    </div>
-                ''')
             record.html_chat = Markup(''.join(html))
-
-
 
 class Appointment(models.Model):
     _name = 'appointment.model'

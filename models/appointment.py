@@ -8,9 +8,8 @@ class Appointment(models.Model):
     _name = 'appointment.model'
     _description = 'Appointments'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _inherits = {'res.partner': 'partner_id'}
 
-    partner_id = fields.Many2one('res.partner',string = 'Assigned Agent', tracking = True)
+    partner_id = fields.Many2one('res.users',string = 'Call Center Agent', tracking = True)
     incoming_id = fields.Many2one('incoming.leads', string='Incoming Lead')
     appointment_date = fields.Datetime(string='Appointment Date')
     state = fields.Selection([('draft','Draft'),('confirmed','Confirmed'),('completed','Completed'),('cancelled','Cancelled')],string = 'State')

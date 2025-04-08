@@ -93,7 +93,7 @@
                                         <field name = "template" invisible="not wp_show or not use_temp" />
                                     </group>
                                 </div>
-                                <div class="chat-interface" invisible="not wp_show">
+                                <div class="chat-interface-container" invisible="not wp_show">
                                     <div class="chat-container">
                                         <field name="html_chat" widget="html"/>
                                         <div class="chat-input-wrapper">

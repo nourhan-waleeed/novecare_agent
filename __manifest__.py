@@ -13,6 +13,8 @@
         'views/appointment_view.xml',
         'views/message_template_view.xml',
         'views/instagram_template.xml',
+        'views/snapchat_template.xml',
+        'views/tiktok_template.xml',
         'views/menus.xml',
 
     ],

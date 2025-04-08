@@ -1,5 +1,5 @@
 <odoo>
-    <template id="instagram_lead_form">
+    <template id="snapchat_lead_form">
         <html lang="en">
             <head>
                 <meta charset="UTF-8"/>
@@ -12,11 +12,11 @@
                         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                         crossorigin="anonymous"></script>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-                <title>Instagram Lead Form</title>
+                <title>Snapchat Lead Form</title>
                 <style>
                     body {
-                        background-color: #FAFAFA;
-                        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                        background-color: #FFFC00;
+                        font-family: 'Avenir Next', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
                     }
 
                     .main-container {
@@ -38,17 +38,16 @@
                         display: block;
                         width: 100px;
                         height: 3px;
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        background: #000000;
                         margin: 1.5rem auto 0;
                         border-radius: 3px;
                     }
 
-                    .instagram-gradient {
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
-                        -webkit-background-clip: text;
-                        background-clip: text;
-                        color: transparent;
+                    .snapchat-highlight {
+                        background-color: #FFFC00;
+                        padding: 0 5px;
                         font-weight: 600;
+                        color: #000000;
                     }
 
                     .form-logo {
@@ -64,20 +63,20 @@
                         margin-bottom: 3rem;
                         position: relative;
                         background-color: white;
-                        box-shadow: 0 5px 20px rgba(193, 53, 132, 0.08);
+                        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
                     }
 
                     div.sub-title {
                         width: max-content;
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        background-color: #000000;
                         padding: 12px 50px;
                         border-radius: 30px;
                         position: absolute;
                         left: 50%;
-                        color: white;
+                        color: #FFFC00;
                         top: -25px;
                         transform: translate(-50%, 0);
-                        box-shadow: 0 5px 15px rgba(193, 53, 132, 0.3);
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
                     }
 
                     div.sub-title h3 {
@@ -88,7 +87,7 @@
                     }
 
                     .form_container .row label {
-                        color: #555;
+                        color: #333;
                         margin-bottom: 8px;
                         font-weight: 500;
                         font-size: 0.95rem;
@@ -108,14 +107,14 @@
                     .form_container .row input:focus,
                     .form_container .row select:focus,
                     .form_container .row textarea:focus {
-                        border-color: #C13584;
+                        border-color: #000000;
                         outline: none;
-                        box-shadow: 0 0 0 3px rgba(193, 53, 132, 0.1);
+                        box-shadow: 0 0 0 3px rgba(255, 252, 0, 0.3);
                     }
 
                     .submitButton {
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4);
-                        color: white;
+                        background-color: #000000;
+                        color: #FFFC00;
                         width: 220px;
                         padding: 13px;
                         border: none;
@@ -124,16 +123,17 @@
                         font-size: 1.1rem;
                         letter-spacing: 0.5px;
                         transition: all 0.3s ease;
-                        box-shadow: 0 5px 20px rgba(193, 53, 132, 0.3);
+                        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
                     }
 
                     .submitButton:hover {
                         transform: translateY(-3px);
-                        box-shadow: 0 8px 25px rgba(193, 53, 132, 0.4);
+                        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                        background-color: #222222;
                     }
 
                     .required-field {
-                        color: #E1306C;
+                        color: #FF0000;
                         font-weight: bold;
                         margin-left: 3px;
                     }
@@ -147,7 +147,7 @@
                         right: 15px;
                         top: 50%;
                         transform: translateY(-50%);
-                        color: #C13584;
+                        color: #000000;
                         opacity: 0.5;
                     }
 
@@ -170,12 +170,12 @@
                 <div class="container my-5">
                     <div class="main-container mx-auto">
                         <div class="form-header">
-<!--                            <img src="/novecare_agent/static/src/img/instagram.png" alt="Instagram" class="form-logo"/>-->
-                            <h2>Book Your <span class="instagram-gradient">Skin &amp; Beauty Consultation</span></h2>
+                            <!-- <img src="/novecare_agent/static/src/img/snapchat.png" alt="Snapchat" class="form-logo"/> -->
+                            <h2>Book Your <span class="snapchat-highlight">Skin &amp; Beauty Consultation</span></h2>
                             <p class="text-muted mt-2">Fill out this form for a personalized dermatology assessment. Our specialized beauty consultant will call you to discuss your skincare needs.</p>
                         </div>
 
-                        <form role="form" action="/instagram/lead/submit" method="POST">
+                        <form role="form" action="/snapchat/lead/submit" method="POST">
                             <div class="form_container">
                                 <div class="sub-title mx-auto">
                                     <h3><i class="fas fa-spa me-2"></i> Your Beauty Profile</h3>
@@ -252,104 +252,106 @@
         </html>
     </template>
 
-    <template id="instagram_lead_confirmation">
-        <html lang="en">
-            <head>
-                <meta charset="UTF-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-                      rel="stylesheet"
-                      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-                      crossorigin="anonymous"/>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                        crossorigin="anonymous"></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-                <title>Thank You</title>
-                <style>
-                    body {
-                        background-color: #FAFAFA;
-                        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-                    }
-
-                    .confirmation-container {
-                        border: none;
-                        margin: 50px auto;
-                        padding: 50px;
-                        border-radius: 20px;
-                        max-width: 600px;
-                        text-align: center;
-                        background-color: white;
-                        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-                    }
-
-                    .confirmation-header {
-                        font-size: 28px;
-                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4);
-                        -webkit-background-clip: text;
-                        background-clip: text;
-                        color: transparent;
-                        margin-bottom: 20px;
-                        font-weight: 600;
-                    }
-
-                    .confirmation-icon {
-                        font-size: 5rem;
-                        color: #4CAF50;
-                        margin-bottom: 25px;
-                        animation: pulse 2s infinite;
-                    }
-
-                    @keyframes pulse {
-                        0% {
-                            transform: scale(1);
-                        }
-                        50% {
-                            transform: scale(1.1);
-                        }
-                        100% {
-                            transform: scale(1);
-                        }
-                    }
-
-                    .form-logo {
-                        width: 90px;
-                        margin-bottom: 30px;
-                        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-                    }
-
-                    .lead-text {
-                        color: #555;
-                        font-size: 1.1rem;
-                        line-height: 1.6;
-                    }
-
-                    .contact-info {
-                        margin-top: 30px;
-                        padding: 15px;
-                        background: linear-gradient(90deg, rgba(193, 53, 132, 0.05), rgba(131, 58, 180, 0.05));
-                        border-radius: 10px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container my-5">
-                    <div class="confirmation-container">
-<!--                        <img src="/novecare_agent/static/src/img/instagram_logo.png" alt="Instagram" class="form-logo"/>-->
-                        <div class="confirmation-icon">
-                            <i class="fas fa-check-circle"></i>
-                            <!-- Fallback if FontAwesome is not available -->
-                            <div t-if="1" style="display: none;">✓</div>
-                        </div>
-                        <h3 class="confirmation-header">Thank You For Choosing Our Skin Clinic, <t t-esc="lead.lead_first_name"/>!</h3>
-                        <p class="lead-text">Your consultation request has been received and our team will contact you shortly to confirm your appointment.</p>
-
-                        <div class="contact-info">
-                            <p class="mb-0"><i class="fas fa-info-circle me-2"></i> If you have any questions, please feel free to reach out to us.</p>
-                        </div>
-                    </div>
-                </div>
-            </body>
-        </html>
-    </template>
+<!--    <template id="snapchat_lead_confirmation">-->
+<!--        <html lang="en">-->
+<!--            <head>-->
+<!--                <meta charset="UTF-8"/>-->
+<!--                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+<!--                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"-->
+<!--                      rel="stylesheet"-->
+<!--                      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"-->
+<!--                      crossorigin="anonymous"/>-->
+<!--                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"-->
+<!--                        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"-->
+<!--                        crossorigin="anonymous"></script>-->
+<!--                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>-->
+<!--                <title>Thank You</title>-->
+<!--                <style>-->
+<!--                    body {-->
+<!--                        background-color: #FFFC00;-->
+<!--                        font-family: 'Avenir Next', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;-->
+<!--                    }-->
+<!--    -->
+<!--                    .confirmation-container {-->
+<!--                        border: none;-->
+<!--                        margin: 50px auto;-->
+<!--                        padding: 50px;-->
+<!--                        border-radius: 20px;-->
+<!--                        max-width: 600px;-->
+<!--                        text-align: center;-->
+<!--                        background-color: white;-->
+<!--                        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);-->
+<!--                    }-->
+<!--    -->
+<!--                    .confirmation-header {-->
+<!--                        font-size: 28px;-->
+<!--                        color: #000000;-->
+<!--                        margin-bottom: 20px;-->
+<!--                        font-weight: 600;-->
+<!--                    }-->
+<!--    -->
+<!--                    .confirmation-header span {-->
+<!--                        background-color: #FFFC00;-->
+<!--                        padding: 0 5px;-->
+<!--                    }-->
+<!--    -->
+<!--                    .confirmation-icon {-->
+<!--                        font-size: 5rem;-->
+<!--                        color: #000000;-->
+<!--                        margin-bottom: 25px;-->
+<!--                        animation: pulse 2s infinite;-->
+<!--                    }-->
+<!--    -->
+<!--                    @keyframes pulse {-->
+<!--                        0% {-->
+<!--                            transform: scale(1);-->
+<!--                        }-->
+<!--                        50% {-->
+<!--                            transform: scale(1.1);-->
+<!--                        }-->
+<!--                        100% {-->
+<!--                            transform: scale(1);-->
+<!--                        }-->
+<!--                    }-->
+<!--    -->
+<!--                    .form-logo {-->
+<!--                        width: 90px;-->
+<!--                        margin-bottom: 30px;-->
+<!--                        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));-->
+<!--                    }-->
+<!--    -->
+<!--                    .lead-text {-->
+<!--                        color: #555;-->
+<!--                        font-size: 1.1rem;-->
+<!--                        line-height: 1.6;-->
+<!--                    }-->
+<!--    -->
+<!--                    .contact-info {-->
+<!--                        margin-top: 30px;-->
+<!--                        padding: 15px;-->
+<!--                        background-color: rgba(255, 252, 0, 0.2);-->
+<!--                        border-radius: 10px;-->
+<!--                    }-->
+<!--                </style>-->
+<!--            </head>-->
+<!--            <body>-->
+<!--                <div class="container my-5">-->
+<!--                    <div class="confirmation-container">-->
+<!--                        &lt;!&ndash; <img src="/novecare_agent/static/src/img/snapchat_logo.png" alt="Snapchat" class="form-logo"/> &ndash;&gt;-->
+<!--                        <div class="confirmation-icon">-->
+<!--                            <i class="fas fa-check-circle"></i>-->
+<!--                            &lt;!&ndash; Fallback if FontAwesome is not available &ndash;&gt;-->
+<!--                            <div t-if="1" style="display: none;">✓</div>-->
+<!--                        </div>-->
+<!--                        <h3 class="confirmation-header">Thank You For Choosing Our Skin Clinic, <span><t t-esc="lead.lead_first_name"/></span>!</h3>-->
+<!--                        <p class="lead-text">Your consultation request has been received and our team will contact you shortly to confirm your appointment.</p>-->
+<!--    -->
+<!--                        <div class="contact-info">-->
+<!--                            <p class="mb-0"><i class="fas fa-info-circle me-2"></i> If you have any questions, please feel free to reach out to us.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </body>-->
+<!--        </html>-->
+<!--    </template>-->
 </odoo>
