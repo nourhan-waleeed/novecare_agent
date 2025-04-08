@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Appointment Form View -->
     <record id="view_appointment_form" model="ir.ui.view">
         <field name="name">appointment.model.form</field>
         <field name="model">appointment.model</field>
         <field name="arch" type="xml">
             <form string="Book Appointment">
                 <header>
-<!--                    <button name="confirm_appointment" string="Confirm" type="object" class="oe_highlight" states="draft"/>-->
-<!--                    <button name="cancel_appointment" string="Cancel" type="object" states="draft,confirmed"/>-->
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,completed,cancelled"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,completed,cancelled" options="{'clickable' : '1'}"/>
                 </header>
                 <sheet>
                     <div class="appointment_container">
-
                         <div class="appointment_section">
                             <div class="section_title">
                                 <h3>Patient Information</h3>
@@ -30,7 +27,6 @@
                             </div>
                         </div>
 
-                        <!-- Section 2: Medical Information -->
                         <div class="appointment_section">
                             <div class="section_title">
                                 <h3>Medical Information</h3>
@@ -56,7 +52,6 @@
                             </div>
                         </div>
 
-                        <!-- Section 3: Appointment Details -->
                         <div class="appointment_section">
                             <div class="section_title">
                                 <h3>Appointment Details</h3>
@@ -64,10 +59,9 @@
                             <div class="section_content">
                                 <group col="4">
                                     <field name="appointment_date" widget="date" required="1" string="Date"/>
-                                    <field name="partner_id" options="{'no_create': True}" required="1" string="Healthcare Provider"/>
-                                    <field name="doctor" required="1" string="Doctor"/>
-                                    <field name="clinic" required="1" string="Clinic"/>
-<!--                                    <field name="appointment_type" widget="radio" required="1" string="Appointment Type"/>-->
+                                    <field name="partner_id" options="{'no_create': True}" required="1" string="Call Center Agent"/>
+                                    <field name="doctor"  string="Doctor"/>
+                                    <field name="clinic"  string="Clinic"/>
                                 </group>
                             </div>
                         </div>
@@ -84,7 +78,6 @@
         </field>
     </record>
 
-    <!-- Appointment Tree View -->
     <record id="view_appointment_tree" model="ir.ui.view">
         <field name="name">appointment.model.tree</field>
         <field name="model">appointment.model</field>
@@ -100,7 +93,6 @@
     </record>
 
 
-    <!-- Appointment Action -->
     <record id="action_appointment" model="ir.actions.act_window">
         <field name="name">Appointments</field>
         <field name="res_model">appointment.model</field>

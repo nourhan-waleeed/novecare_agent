@@ -3,7 +3,7 @@
     'name': 'NoveCare',
     'author': 'Super Team',
     'category': 'Crm, Products',
-    'depends': ['base', 'mail', 'contacts', 'crm', ],
+    'depends': ['base', 'mail', 'contacts', 'crm', 'website'],
     'web_icon': 'novecare,static/description/icon.png',
     'description': """Crm Automation Tools Responsible For Catching All Leads Come From Omni Channels """,
     'data': [
@@ -12,6 +12,7 @@
         'views/incoming_leads_view.xml',
         'views/appointment_view.xml',
         'views/message_template_view.xml',
+        'views/instagram_template.xml',
         'views/menus.xml',
 
     ],

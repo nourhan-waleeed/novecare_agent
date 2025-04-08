@@ -1,0 +1,355 @@
+<odoo>
+    <template id="instagram_lead_form">
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+                      rel="stylesheet"
+                      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                      crossorigin="anonymous"/>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                        crossorigin="anonymous"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+                <title>Instagram Lead Form</title>
+                <style>
+                    body {
+                        background-color: #FAFAFA;
+                        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                    }
+
+                    .main-container {
+                        max-width: 850px;
+                        background-color: white;
+                        border-radius: 20px;
+                        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+                        padding: 2.5rem;
+                    }
+
+                    .form-header {
+                        text-align: center;
+                        margin-bottom: 2.5rem;
+                        position: relative;
+                    }
+
+                    .form-header::after {
+                        content: '';
+                        display: block;
+                        width: 100px;
+                        height: 3px;
+                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        margin: 1.5rem auto 0;
+                        border-radius: 3px;
+                    }
+
+                    .instagram-gradient {
+                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        color: transparent;
+                        font-weight: 600;
+                    }
+
+                    .form-logo {
+                        width: 80px;
+                        margin-bottom: 1rem;
+                        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+                    }
+
+                    .form_container {
+                        border: none;
+                        border-radius: 15px;
+                        padding: 2.5rem 2rem 2rem;
+                        margin-bottom: 3rem;
+                        position: relative;
+                        background-color: white;
+                        box-shadow: 0 5px 20px rgba(193, 53, 132, 0.08);
+                    }
+
+                    div.sub-title {
+                        width: max-content;
+                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4, #5851DB, #405DE6);
+                        padding: 12px 50px;
+                        border-radius: 30px;
+                        position: absolute;
+                        left: 50%;
+                        color: white;
+                        top: -25px;
+                        transform: translate(-50%, 0);
+                        box-shadow: 0 5px 15px rgba(193, 53, 132, 0.3);
+                    }
+
+                    div.sub-title h3 {
+                        font-size: 1.2rem;
+                        margin: 0;
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                    }
+
+                    .form_container .row label {
+                        color: #555;
+                        margin-bottom: 8px;
+                        font-weight: 500;
+                        font-size: 0.95rem;
+                    }
+
+                    .form_container .row input,
+                    .form_container .row select,
+                    .form_container .row textarea {
+                        margin-bottom: 20px;
+                        border: solid 1px #E1E1E1;
+                        border-radius: 10px;
+                        padding: 12px 15px;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+                    }
+
+                    .form_container .row input:focus,
+                    .form_container .row select:focus,
+                    .form_container .row textarea:focus {
+                        border-color: #C13584;
+                        outline: none;
+                        box-shadow: 0 0 0 3px rgba(193, 53, 132, 0.1);
+                    }
+
+                    .submitButton {
+                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4);
+                        color: white;
+                        width: 220px;
+                        padding: 13px;
+                        border: none;
+                        border-radius: 30px;
+                        font-weight: 600;
+                        font-size: 1.1rem;
+                        letter-spacing: 0.5px;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 5px 20px rgba(193, 53, 132, 0.3);
+                    }
+
+                    .submitButton:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 8px 25px rgba(193, 53, 132, 0.4);
+                    }
+
+                    .required-field {
+                        color: #E1306C;
+                        font-weight: bold;
+                        margin-left: 3px;
+                    }
+
+                    .input-with-icon {
+                        position: relative;
+                    }
+
+                    .input-icon {
+                        position: absolute;
+                        right: 15px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        color: #C13584;
+                        opacity: 0.5;
+                    }
+
+                    @media (max-width: 768px) {
+                        .main-container {
+                            padding: 1.5rem;
+                        }
+
+                        .form_container {
+                            padding: 2rem 1rem 1.5rem;
+                        }
+
+                        div.sub-title {
+                            padding: 10px 30px;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container my-5">
+                    <div class="main-container mx-auto">
+                        <div class="form-header">
+                            <img src="/novecare_agent/static/src/img/instagram.png" alt="Instagram" class="form-logo"/>
+                            <h2>Book Your <span class="instagram-gradient">Skin &amp; Beauty Consultation</span></h2>
+                            <p class="text-muted mt-2">Fill out this form for a personalized dermatology assessment. Our specialized beauty consultant will call you to discuss your skincare needs.</p>
+                        </div>
+
+                        <form role="form" action="/instagram/lead/submit" method="POST">
+                            <div class="form_container">
+                                <div class="sub-title mx-auto">
+                                    <h3><i class="fas fa-spa me-2"></i> Your Beauty Profile</h3>
+                                </div>
+                                <div class="row my-4 pt-2">
+                                    <div class="col-md-6">
+                                        <label for="first_name">First Name<span class="required-field">*</span></label>
+                                        <div class="input-with-icon">
+                                            <input type="text" class="w-100" name="first_name" required="required" placeholder="Enter your first name"/>
+                                            <i class="fas fa-user input-icon"></i>
+                                        </div>
+
+                                        <label for="last_name">Last Name<span class="required-field">*</span></label>
+                                        <div class="input-with-icon">
+                                            <input type="text" class="w-100" name="last_name" required="required" placeholder="Enter your last name"/>
+                                            <i class="fas fa-user-tag input-icon"></i>
+                                        </div>
+
+                                        <label for="phone">Phone Number<span class="required-field">*</span></label>
+                                        <div class="input-with-icon">
+                                            <input type="tel" class="w-100" name="phone" required="required" placeholder="Enter your phone number"/>
+                                            <i class="fas fa-phone input-icon"></i>
+                                        </div>
+
+                                        <label for="email">Email<span class="required-field">*</span></label>
+                                        <div class="input-with-icon">
+                                            <input type="email" class="w-100" name="email" required="required" placeholder="Enter your email"/>
+                                            <i class="fas fa-envelope input-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="gender">Gender</label>
+                                        <div class="input-with-icon">
+                                            <select name="gender" class="w-100">
+                                                <option value="">Select Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <i class="fas fa-venus-mars input-icon"></i>
+                                        </div>
+
+                                        <label for="dob">Date of Birth</label>
+                                        <div class="input-with-icon">
+                                            <input type="date" class="w-100" name="dob"/>
+                                            <i class="fas fa-calendar-alt input-icon"></i>
+                                        </div>
+
+                                        <label for="contact_method">Preferred Contact Method</label>
+                                        <div class="input-with-icon">
+                                            <select name="contact_method" class="w-100">
+                                                <option value="whatsapp">WhatsApp</option>
+                                                <option value="phone">Phone Call</option>
+                                                <option value="email">Email</option>
+                                            </select>
+                                            <i class="fas fa-comment-dots input-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="reason">Skin Concerns &amp; Treatment Goals</label>
+                                        <textarea name="reason" class="w-100" rows="4" placeholder="Describe your skin concerns, desired treatments, or beauty goals you'd like to discuss with our dermatology consultant..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="mx-auto d-block submitButton">
+                                <i class="fas fa-heartbeat me-2"></i> Request Consultation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </body>
+        </html>
+    </template>
+
+    <template id="instagram_lead_confirmation">
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+                      rel="stylesheet"
+                      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                      crossorigin="anonymous"/>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                        crossorigin="anonymous"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+                <title>Thank You</title>
+                <style>
+                    body {
+                        background-color: #FAFAFA;
+                        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                    }
+
+                    .confirmation-container {
+                        border: none;
+                        margin: 50px auto;
+                        padding: 50px;
+                        border-radius: 20px;
+                        max-width: 600px;
+                        text-align: center;
+                        background-color: white;
+                        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .confirmation-header {
+                        font-size: 28px;
+                        background: linear-gradient(90deg, #FCAF45, #E1306C, #C13584, #833AB4);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        color: transparent;
+                        margin-bottom: 20px;
+                        font-weight: 600;
+                    }
+
+                    .confirmation-icon {
+                        font-size: 5rem;
+                        color: #4CAF50;
+                        margin-bottom: 25px;
+                        animation: pulse 2s infinite;
+                    }
+
+                    @keyframes pulse {
+                        0% {
+                            transform: scale(1);
+                        }
+                        50% {
+                            transform: scale(1.1);
+                        }
+                        100% {
+                            transform: scale(1);
+                        }
+                    }
+
+                    .form-logo {
+                        width: 90px;
+                        margin-bottom: 30px;
+                        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+                    }
+
+                    .lead-text {
+                        color: #555;
+                        font-size: 1.1rem;
+                        line-height: 1.6;
+                    }
+
+                    .contact-info {
+                        margin-top: 30px;
+                        padding: 15px;
+                        background: linear-gradient(90deg, rgba(193, 53, 132, 0.05), rgba(131, 58, 180, 0.05));
+                        border-radius: 10px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container my-5">
+                    <div class="confirmation-container">
+<!--                        <img src="/novecare_agent/static/src/img/instagram_logo.png" alt="Instagram" class="form-logo"/>-->
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                            <!-- Fallback if FontAwesome is not available -->
+                            <div t-if="1" style="display: none;">✓</div>
+                        </div>
+                        <h3 class="confirmation-header">Thank You For Choosing Our Skin Clinic, <t t-esc="lead.lead_first_name"/>!</h3>
+                        <p class="lead-text">Your consultation request has been received and our team will contact you shortly to confirm your appointment.</p>
+
+                        <div class="contact-info">
+                            <p class="mb-0"><i class="fas fa-info-circle me-2"></i> If you have any questions, please feel free to reach out to us.</p>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </html>
+    </template>
+</odoo>

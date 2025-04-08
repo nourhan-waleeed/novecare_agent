@@ -40,7 +40,7 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: #009688;
+    background-color: #005a4f;
     color: white;
     margin-right: 8px;
     font-weight: 600;
@@ -66,12 +66,12 @@
     margin-bottom: 20px;
 
     h3 {
-        color: #009688;
+        color: #005a4f;
         font-size: 18px;
         margin: 0;
         font-weight: 500;
         padding-left: 10px;
-        border-left: 3px solid #009688;
+        border-left: 3px solid #005a4f;
     }
 }
 
@@ -96,8 +96,8 @@ input, textarea, select {
     }
 
     &:focus {
-        border-color: #009688 !important;
-        box-shadow: 0 0 0 0.2rem rgba(0, 150, 136, 0.25) !important;
+        border-color: #005a4f !important;
+        box-shadow: 0 0 0 0.2rem rgba(0, 90, 79, 0.25) !important;
     }
 }
 
@@ -128,16 +128,16 @@ input, textarea, select {
 }
 
 .btn-primary, button.btn-primary {
-    background-color: #009688 !important;
-    border-color: #009688 !important;
+    background-color: #005a4f !important;
+    border-color: #005a4f !important;
     color: white !important;
     padding: 8px 20px;
     font-weight: 500;
     border-radius: 4px;
 
     &:hover {
-        background-color: #00796b !important;
-        border-color: #00796b !important;
+        background-color: #004640 !important;
+        border-color: #004640 !important;
     }
 }
 
@@ -146,14 +146,14 @@ input, textarea, select {
     margin-right: 15px;
 
     > input:checked + label:before {
-        border-color: #009688;
-        background: #009688;
+        border-color: #005a4f;
+        background: #005a4f;
     }
 }
 
 .o_field_boolean_toggle .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: #009688;
-    border-color: #009688;
+    background-color: #005a4f;
+    border-color: #005a4f;
 }
 
 /* Many2many tags field styling */
@@ -165,8 +165,8 @@ input, textarea, select {
     padding: 5px 10px;
 
     &.o_tag_color_0 {
-        background-color: #E0F2F1;
-        color: #004D40;
+        background-color: #E0F0EF;
+        color: #003D35;
     }
 }
 

@@ -89,8 +89,8 @@
                                 </div>
                                 <div>
                                     <group>
-                                        <field name="use_temp" invisible="not wp_show"/>
-                                        <field name = "template" invisible="not wp_show or not use_temp"/>
+                                        <field name="use_temp" invisible="not wp_show" widget="boolean_toggle"/>
+                                        <field name = "template" invisible="not wp_show or not use_temp" />
                                     </group>
                                 </div>
                                 <div class="chat-interface" invisible="not wp_show">
@@ -219,7 +219,7 @@
                                                 <field name="source" string="Source"/>
                                                 <field name="lead_date" string="Lead Date"/>
                                                 <field name="reason" string="Reason"/>
-                                                <field name="partner_id" string="Assigned Agent"/>
+                                                <field name="partner_id" string="Call Center Agent" required="0"/>
                                             </group>
                                         </group>
 

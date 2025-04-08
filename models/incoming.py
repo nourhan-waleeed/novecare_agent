@@ -42,6 +42,7 @@ class IncomingLeads(models.Model):
     use_temp = fields.Boolean(string='Use Message Template',default=False)
     template = fields.Many2one('message.template')
     json_msg = fields.Html(related ='template.computed_json')
+
     def whatsapp_view(self):
         for rec in self:
             if not rec.wp_show:
@@ -69,13 +70,10 @@ class IncomingLeads(models.Model):
                 'default_lead_phone_no': self.lead_phone_no,
                 'default_email': self.email,
                 'default_reason_for_visit': self.reason,
-                'default_appointment_date': fields.Datetime.now(),  # Default to tomorrow
+                'default_appointment_date': fields.Datetime.now(),
                 'default_state': 'draft',
         },
         }
-
-
-
 
 
     # chating
@@ -141,30 +139,9 @@ class IncomingLeads(models.Model):
                         "is_send_by_user": True
                     })]
                 })
+            rec.box =False
+            rec.template =False
 
-    def chatting(self):
-        if self.box_html:
-            url = "http://172.16.16.107:7776/ask"
-            payload = {
-                "question": self.box_html
-            }
-            print('payload', payload)
-            response = requests.post(url, json=payload)
-            response.raise_for_status()
-
-            answer = response.json().get('answer')
-            print('answer',answer)
-
-            if answer:
-                # formatted_answer = self.format_text(answer)
-
-                self.write({
-                    'chat_history': [(0, 0, {
-                        'lead': self,
-                        'agent': answer,
-                    })]
-                })
-            self.box = ""
 
     @api.depends('chat_history')
     def chat_interface(self):
