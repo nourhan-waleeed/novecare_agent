@@ -67,6 +67,15 @@ class WhatsappWoztell(http.Controller):
                     lead.write({
                         'chat_history': [(0, 0, {
                             'lead':  data['data']['text'],
+                            'agent': " ",
+
+                        })]
+                    })
+                    lead.write({
+                        'is_send_by_user': False,
+
+                        'chat_history': [(0, 0, {
+                            'lead':  " ",
                             'agent': formatted_answer,
 
                         })]
