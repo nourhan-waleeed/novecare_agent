@@ -90,7 +90,11 @@
                                 <div>
                                     <group>
                                         <field name="use_temp" invisible="not wp_show" widget="boolean_toggle"/>
+                                        <field name="takeover" widget="boolean_toggle"/>
+                                    </group>
+                                    <group>
                                         <field name = "template" invisible="not wp_show or not use_temp" />
+
                                     </group>
                                 </div>
                                 <div class="chat-interface-container" invisible="not wp_show">

@@ -10,16 +10,20 @@ class IncomingLeads(models.Model):
 
     partner_id = fields.Many2one('res.users',string = 'Call Center Agent', tracking = True)
     stages = fields.Selection([('lead','Lead'),('patient','Patient'),('won','Closed Won')],string = 'Stages',tracking = True)
+
     lead_status = fields.Selection([('expected_patient','Expected Patient'),('need_2nd_call','Need Second Call'),('need_3rd_call','Need Third Call'),
                                     ('closed_lost','Closed Lost'),('book_appointment','Book Appointment'),('confirmed','Confirmed')
                                     ,('consultation','Consultation'),('procedure','Procedure')
                                     ,('rescheduled','Rescheduled'),('no_show','No Show'),('show','Show')
                                     ],string='Status',tracking = True)
+
     patient_status = fields.Selection([('confirmed','Confirmed'),('rescheduled_appointment','Rescheduled Appointment')
                                         ,('no_show','No Show'),('show','Show')
                                        ],string='Status',tracking = True)
     won_status = fields.Selection([('consultation','Consultation'),('procedure','Procedure')],string='Status',tracking = True)
     reason = fields.Text(string = 'Reason')
+
+    takeover = fields.Boolean(string = 'Takeover The Chat')
     segment = fields.Many2one('segments.model',string = 'Segment')
     source = fields.Selection([('Instagram','Instagram'),('Tiktok','Tiktok'),('Snapchat','Snapchat'),('Facebook','Facebook'),('Whatsapp','Whatsapp')],
                               string ='Source')
@@ -121,14 +125,14 @@ class IncomingLeads(models.Model):
                 })
             if rec.json_msg:
                 template_json = json.loads(rec.json_msg)
-
+                print('template json',template_json)
                 phone = f"2{rec.lead_phone_no}"
                 response_data = {
                     "channelId": channel_id,
                     "recipientId": phone,
                     "response": [template_json]
                 }
-
+                print('response',response_data)
 
                 requests.post(url, json=response_data)
                 rec.write({
@@ -141,7 +145,6 @@ class IncomingLeads(models.Model):
                 })
             rec.box =False
             rec.template =False
-
 
     @api.depends('chat_history')
     def chat_interface(self):
