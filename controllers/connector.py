@@ -10,7 +10,14 @@ _logger = logging.getLogger(__name__)
 
 class WhatsappWoztell(http.Controller):
 
-
+    def format_text(self, text):
+        print('into formatting', text)
+        text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
+        text = text.replace('\n', '<br>')
+        text = re.sub(r'\*\s+(.*?)(?:\n|$)', r'<li>\1</li>', text)
+        text = re.sub(r'\#\#(.*?)\s', r'<h1>\1</h1>', text)
+        print('foormatted', text)
+        return text
     @http.route('/lead/generation', type='http', auth='public', methods=['GET', 'POST'], csrf=False)
     def handle_webhook(self, **kw):
         print('into controller')
