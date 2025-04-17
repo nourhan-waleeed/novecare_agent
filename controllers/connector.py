@@ -32,8 +32,8 @@ class WhatsappWoztell(http.Controller):
                 url = "http://62.146.183.67:6565/ask"
                 print('--------------------into ask ai')
                 payload = {
-                    "question": data['data']['text']
-
+                    "question": data['data']['text'],
+                    "phone_number":data['from']
                 }
                 response = requests.post(url, json=payload)
                 response.raise_for_status()
