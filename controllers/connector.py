@@ -65,16 +65,14 @@ class WhatsappWoztell(http.Controller):
                     response.raise_for_status()
                     print('chat was found',lead)
                     lead.write({
-                        'is_send_by_user': False,
-                        'chat_history': [
-                            (0, 0, {
-                                'lead': data['data']['text'],
-                                'agent': False,
-                            }),
-                            (0, 0, {
-                                'lead': False,
-                                'agent': formatted_answer,
-                            })
-                        ]
+
+                        'chat_history': [(0, 0, {
+                            'lead': data['data']['text'],
+                            'agent': formatted_answer,
+                            'timestamp': fields.Datetime.now(),
+                            "is_send_by_user": False
+
+                        })]
                     })
+
 
