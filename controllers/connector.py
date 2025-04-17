@@ -29,7 +29,7 @@ class WhatsappWoztell(http.Controller):
             lead = request.env['incoming.leads'].search([('lead_phone_no','=',data['from'][1:])],limit=1)
             if lead and not lead.takeover:
 
-                url = "http://62.146.183.67:7776/ask"
+                url = "http://62.146.183.67:6565/ask"
                 print('--------------------into ask ai')
                 payload = {
                     "question": data['data']['text']
