@@ -26,16 +26,23 @@
         <field name="arch" type="xml">
             <form string="Incoming Lead">
                 <header>
-                    <button name="action_book_appointment" type="object"
-                            style="background-color: #00796b; border-color: #00796b; color: white;
-                                  border-radius: 25px; padding: 8px 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-                                  font-weight: 500; transition: all 0.3s ease;"
-                            class="oe_highlight">
-                        <i class="fa fa-calendar me-2"></i>
-                        Book Appointment
-                    </button>
+
+
                 </header>
                 <sheet>
+                    <div class="floating-appointment-button" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000;">
+                        <button name="action_book_appointment" type="object"
+                                style="width: 80px; height: 80px; border-radius: 60%%; background-color: #00796b; border: none;
+                                      box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center;
+                                      transition: all 0.3s ease; color: white; font-size: 24px; padding: 0;">
+                            <i class="fa fa-calendar"></i>
+                        </button>
+<!--                        <div style="position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); width: 120px; text-align: center;-->
+<!--                                  font-size: 12px; color: #333; background-color: rgba(255,255,255,0.8); padding: 3px 8px;-->
+<!--                                  border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">-->
+<!--                            Book Appointment-->
+<!--                        </div>-->
+                    </div>
                     <div class="oe_title" invisible="1">
                         <h1>
                             <field name="lead_first_name" placeholder="First Name" style="width: 50%;"/>
@@ -59,11 +66,11 @@
                                     </div>
                                     <div>
                                         <div class="d-flex fs-4 fw-bold">
-                                            <field name="lead_first_name"/>
+                                            <field name="name"/>
                                             <span class="mx-1"></span>
-                                            <field name="lead_last_name"/>
+<!--                                            <field name="lead_last_name"/>-->
                                         </div>
-                                        <div style="font-size: 13px;">ID: DERM-
+                                        <div style="font-size: 13px;">ID: CRM-
                                             <field name="id"/>
                                         </div>
                                         <div class="badge"
@@ -90,10 +97,11 @@
                                 <div>
                                     <group>
                                         <field name="use_temp" invisible="not wp_show" widget="boolean_toggle"/>
-                                        <field name="takeover" widget="boolean_toggle"/>
+                                        <field name = "template" invisible="not wp_show or not use_temp" />
+
                                     </group>
                                     <group>
-                                        <field name = "template" invisible="not wp_show or not use_temp" />
+                                        <field name="takeover" widget="boolean_toggle" invisible="not wp_show"/>
 
                                     </group>
                                 </div>
@@ -101,13 +109,13 @@
                                     <div class="chat-container">
                                         <field name="html_chat" widget="html"/>
                                         <div class="chat-input-wrapper">
-                                        <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}" invisible="use_temp"/>
-                                         <field name = "json_msg"  class="chat-input" options="{'collaborative': false, 'resizable': false}" invisible="not use_temp"/>
-                                            <button name="send_message" type="object" class="send-button">
-                                            <i class="fa fa-paper-plane"/>
-                                        </button>
+                                            <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}" invisible="use_temp"/>
+                                             <field name = "json_msg"  class="chat-input" options="{'collaborative': false, 'resizable': false}" invisible="not use_temp"/>
+                                                <button name="send_message" type="object" class="send-button">
+                                                <i class="fa fa-paper-plane"/>
+                                            </button>
 
-                                    </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -117,6 +125,10 @@
                                         <group string="Phone Number"  class="w-100">
                                             <field name="lead_phone_no" placeholder="Phone Number" nolabel="1"/>
                                         </group>
+                                        <group string="Call Dispostion"  class="w-100">
+                                        <field name="call_dispo_states" widget="radio" placeholder="Last Call Disposition"
+                                               nolabel="1"/>
+                                        </group>
                                         <group string="Preferred Contact Method"  class="w-100">
                                             <field name="preferred_contact_method" readonly="1"
                                                    placeholder="Preferred Contact Method" nolabel="1"/>
@@ -124,19 +136,20 @@
                                         <group string="Date of Birth"  class="w-100">
                                         <field name="lead_dob" placeholder="Date of Birth" readonly="1" nolabel="1"/>
                                         </group>
-                                        <group string="Stages"  class="w-100">
-                                        <field name="stages" widget="radio" placeholder="Stages" readonly="1"
-                                               nolabel="1"/>
-                                        </group>
+
                                     </group>
                                     <group class="w-50">
                                         <group string="Email" class="w-100">
                                             <field name="email" placeholder="Email Address" nolabel="1"/>
                                         </group>
+
+                                        <group string="Callback Date"  class="w-100"  invisible="call_dispo_states != 'Callback'">
+                                            <field name="callback_date" placeholder="Select Callback Datetime" nolabel="1" invisible="call_dispo_states != 'Callback'" required="call_dispo_states == 'Callback'"/>
+                                        </group>
                                         <group string="Gender"  class="w-100">
                                             <field name="lead_gender" placeholder="Gender" readonly="1" nolabel="1"/>
                                         </group>
-                                         <group string="Assigned Agent"  class="w-100">
+                                         <group string="Assigned Call Center Agent"  class="w-100">
                                         <field name="partner_id" nolabel="1"/>
                                          </group>
                                          <group string="Status"  invisible="stages != 'lead'" class="w-100">
@@ -164,8 +177,6 @@
                                 <h3 style="margin: 0; font-size: 16px; color: white;">Lead Information</h3>
                             </div>
                             <div style="background-color: white; padding: 15px;">
-<!--                                <field name="stages" widget="statusbar"-->
-<!--                                       statusbar_visible="lead,patient,won" options="{'clickable' : '1'}"/>-->
 
                                 <notebook>
                                     <page string="Lead Information" name="lead_info">
@@ -210,6 +221,7 @@
 
                                         <group>
                                             <group string="Stage Information" class="w-50">
+
                                                 <field name="stages" string="Stage"/>
                                                 <field name="lead_status" invisible="stages != 'lead'"
                                                        string="Lead Status"/>
@@ -251,14 +263,24 @@
                                             </group>
                                         </group>
                                     </page>
-                                    <page string="Lead Chat History">
-                                            <field name="chat_history">
-                                                <tree editable="bottom">
-                                                    <field name="agent"/>
-                                                    <field name="lead"/>
+                                    <page string="Lead Call History">
+                                        <div class="alert alert-info mb-3" role="alert" style="display: flex; align-items: center;">
+                                                <i class="fa fa-info-circle me-2" style="font-size: 18px;"></i>
+                                                <div>
+                                                    <strong>Current Call Disposition:</strong> <field name="call_dispo_states" readonly="1" nolabel="1" options="{'no_open': True}" style="display: inline; margin-left: 5px; font-weight: bold;"/>
+<!--                                                    <div class="small text-muted mt-1">Update the disposition status in the header to track call outcomes</div>-->
+                                                </div>
+                                        </div>
+                                            <field name="call_dispo">
+                                                <tree editable_buttom="1">
+                                                    <field name="name"/>
+                                                    <field name="partner_id"/>
                                                     <field name="timestamp"/>
                                                 </tree>
                                             </field>
+
+
+
                                         </page>
 
                                 </notebook>
@@ -355,11 +377,7 @@
                                             <t t-esc="record.partner_id.value"/>
                                         </small>
                                     </div>
-                                    <div class="oe_kanban_bottom_right">
-                                        <a name="whatsapp_view" type="object" class="btn btn-sm btn-success">
-                                            <i class="fa fa-whatsapp"/>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

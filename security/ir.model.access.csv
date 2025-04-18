@@ -16,3 +16,5 @@ access_insurance_provider,insurance_provider,model_insurance_provider,,1,1,1,1
 access_message_template,message_template,model_message_template,,1,1,1,1
 access_message_template,message_template,model_message_template,,1,1,1,1
 access_buttons,buttons,model_buttons,,1,1,1,1
+access_chat_dashboard,chat_dashboard,model_chat_dashboard,,1,1,1,1
+access_call_dispo,call_dispo,model_call_dispo,,1,1,1,1

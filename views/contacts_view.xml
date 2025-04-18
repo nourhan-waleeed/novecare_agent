@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_chat_dashboard_form" model="ir.ui.view">
+        <field name="name">chat.dashboard.form</field>
+        <field name="model">chat.dashboard</field>
+        <field name="arch" type="xml">
+        <form string="Chat Dashboard" create="false" delete="false" edit="true">
+                <sheet>
+                    <field name="name" invisible="1"/>
+                    <style>
+                        .contacts-sidebar {
+                            height: 750px;
+                            overflow-y: auto;
+                            border-right: 1px solid #dee2e6;
+                            padding-right: 10px;
+                        }
+                        .contact-card {
+                            border: 1px solid #dee2e6;
+                            border-radius: 4px;
+                            padding: 10px;
+                            margin-bottom: 10px;
+                            cursor: pointer;
+                        }
+                        .contact-card:hover {
+                            background-color: #f8f9fa;
+                        }
+                        .chat-area {
+                            min-height: 7500px; /* Increased from 600px */
+                        }
+                        .chat-container {
+                            display: flex;
+                            flex-direction: column;
+                            height: 500px; /* Added explicit height */
+                        }
+                        .big-div{
+                            display: flex;
+                            flex-direction: column;
+                            height: 1000px; /* Added explicit height */
+
+                        }
+                        .chat-input-wrapper {
+                            margin-top: auto;
+                            display: flex;
+                            border-top: 1px solid #dee2e6;
+                            padding-top: 15px;
+                        }
+                        .chat-input {
+                            flex-grow: 1;
+                        }
+                        .send-button {
+                            background-color: #005a4f;
+                            color: white;
+                            border: none;
+                            border-radius: 50%;
+                            width: 40px;
+                            height: 40px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-left: 10px;
+                            cursor: pointer;
+                        }
+                        .send-button:hover {
+                            background-color: #004640;
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="col-md-3 contacts-sidebar">
+                            <field name="contacts_sidebar" widget="html" options="{'safe': True}" nolabel="1"/>
+                        </div>
+                        <div class="col-md-9 chat-area">
+                            <group>
+                                <field name="contacts" invisible="1"/>
+                            </group>
+                            <div class="big-div">
+                            <div class="chat-container">
+                            <field name="chats" widget="html" options="{'safe': True}"/>
+                                        <div class="chat-input-wrapper">
+                                            <field name="box" class="chat-input" placeholder="Type your message here..." options="{'collaborative': false, 'resizable': false}"/>
+                                                <button name="call_send_message" type="object" class="send-button">
+                                                <i class="fa fa-paper-plane"/>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                        </div>
+                        </div>
+                    </div>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="chat_dashboard_default" model="chat.dashboard">
+        <field name="name">Chat Dashboard</field>
+    </record>
+
+   <record id="action_chat_dashboard" model="ir.actions.act_window">
+        <field name="name">Chat Dashboard</field>
+        <field name="res_model">chat.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" eval="ref('chat_dashboard_default')"/>
+        <field name="target">current</field>
+        <field name="context">{'form_view_initial_mode': 'edit'}</field>
+    </record>
+
+</odoo>

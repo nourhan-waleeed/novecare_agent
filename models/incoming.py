@@ -8,6 +8,40 @@ class IncomingLeads(models.Model):
     _description = 'Incoming Leads'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+
+    name = fields.Char(compute="compute_rec_name")
+
+    def compute_rec_name(self):
+        for rec in self:
+            rec.name = f"{rec.lead_first_name} {rec.lead_last_name}"
+
+    # Dispositionss
+    call_dispo = fields.One2many('call.dispo','incoming',string = 'Calls Dispositions')
+    call_dispo_states = fields.Selection(selection='_get_dispo_states', string='Disposition State')
+    callback_date = fields.Datetime(string='Callback Date')
+
+    @api.model
+    def _get_dispo_states(self):
+        dispo_records = self.env['call.dispo'].search([])
+
+        dispo_names = [dispo.name for dispo in dispo_records if dispo.name]
+
+        unique_dispo_names = list(set(dispo_names))
+
+        return [(name, name) for name in unique_dispo_names] if unique_dispo_names else [('none', 'None')]
+
+    @api.onchange('call_dispo_states')
+    def keep_call_dispo_history(self):
+        for rec in self:
+            if rec.call_dispo_states:
+                rec.write({
+                    'call_dispo': [(0, 0, {
+                        'name': rec.call_dispo_states,
+                        'partner_id': self.env.user.id,
+                        'timestamp': fields.Datetime.now(),
+                    })]
+                })
+
     partner_id = fields.Many2one('res.users',string = 'Call Center Agent', tracking = True)
     stages = fields.Selection([('lead','Lead'),('patient','Patient'),('won','Closed Won')],string = 'Stages',tracking = True)
 
@@ -79,7 +113,6 @@ class IncomingLeads(models.Model):
         },
         }
 
-
     # chating
     chat_history = fields.One2many('chat.history','incoming', string ='Chat')
     box = fields.Html(string='Message Box')
@@ -145,6 +178,66 @@ class IncomingLeads(models.Model):
                 })
             rec.box =False
             rec.template =False
+    def send_remote_message(self,box):
+        print('remote send called')
+        for rec in self:
+            print('sending message')
+            token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJBUEkiLCJhcHAiOiI2NDU4YTRkZTlhMGU0YTU5ZDA3YzdlNjYiLCJhY2wiOlsiYXBpOmFkbWluIiwiYWNjb3VudDp1cGRhdGUiLCJhY3Rpb246Y3JlYXRlIiwiYWN0aW9uOmRlbGV0ZSIsImFjdGlvbjp1cGRhdGUiLCJhZ2VuZGE6Y3JlYXRlIiwiYWdlbmRhOmRlbGV0ZSIsImFnZW5kYTpyZWFkIiwiYWdlbmRhOnVwZGF0ZSIsImFwcDpsaW5rUGFydG5lciIsImFwcDpsaXN0TWFuYWdtZW50UmVxdWVzdCIsImFwcEluZm86Z2V0IiwiYXBwSW50ZWdyYXRpb246Y3JlYXRlIiwiYXBwSW50ZWdyYXRpb246ZGVsZXRlIiwid2hhdHNhcHA6Z2V0RmlsZSIsIndoYXRzYXBwTWVzc2FnZVRlbXBsYXRlczpjcmVhdGUiLCJ3aGF0c2FwcE1lc3NhZ2VUZW1wbGF0ZXM6ZGVsZXRlIiwid2hhdHNhcHBNZXNzYWdlVGVtcGxhdGVzOmdldCIsIndoYXRzYXBwTWVzc2FnZVRlbXBsYXRlczpsaXN0IiwidHJpZ2dlcjp1cGRhdGUiLCJ0cmlnZ2VyOmRlbGV0ZSIsInRyaWdnZXI6Y3JlYXRlIiwidHJlZTp1cGRhdGVUcmVlU2V0dGluZyIsInRyZWU6dXBkYXRlTm9kZXMiLCJ0cmVlOnVwZGF0ZUJhc2ljSW5mbyIsInRyZWU6cmVhZCIsInRyZWU6bGlzdCIsInRyZWU6aW1wb3J0IiwidHJlZTpnZXROb2RlcyIsInRyZWU6Z2V0VHJlZVNldHRpbmciLCJ0cmVlOmdldEJhc2ljSW5mbyIsInRyZWU6ZXhwb3J0IiwidHJlZTpkZWxldGUiLCJ0ZWFtTWVtYmVyOnVwZGF0ZSIsInRlYW1NZW1iZXI6bGlzdCIsInRlYW1NZW1iZXI6ZGVsZXRlIiwidGVhbU1lbWJlcjpjcmVhdGUiLCJyb2xlOmxpc3QiLCJyZXNwb25zZTp1cGRhdGUiLCJyZXNwb25zZTpkZWxldGUiLCJyZXNwb25zZTpjcmVhdGUiLCJub2RlOnVwZGF0ZSIsInByaW9yaXR5R3JvdXA6Y3JlYXRlIiwicHJpb3JpdHlHcm91cDpkZWxldGUiLCJwcmlvcml0eUdyb3VwOmdldCIsInByaW9yaXR5R3JvdXA6bGlzdCIsInByaW9yaXR5R3JvdXA6dXBkYXRlIiwicHVzaDpjcmVhdGUiLCJwdXNoOmRlbGV0ZSIsInB1c2g6Z2V0IiwicHVzaDpsaXN0IiwicHVzaDp1cGRhdGUiLCJub2RlOmRlbGV0ZSIsIm5vZGU6Y3JlYXRlIiwibWVtYmVyczptYW5hZ2VUYWdzIiwibWVtYmVyVGFnczpnZXQiLCJtZW1iZXJUYWdzOmRlbGV0ZSIsIm1lbWJlclRhZ3M6Y3JlYXRlIiwibWVtYmVyOndyaXRlIiwibWVtYmVyOnVwZGF0ZURldGFpbHMiLCJtZW1iZXI6cmVhZCIsIm1lZGlhTGlicmFyeTp1cGRhdGUiLCJtZW1iZXI6VG9nZ2xlTGl2ZUNoYXQiLCJtZW1iZXI6YWRtaW4iLCJtZW1iZXI6Y3JlYXRlIiwibWVtYmVyOmRlbGV0ZSIsIm1lbWJlcjpleHBvcnQiLCJtZW1iZXI6Z2V0Q29udmVyc2F0aW9uIiwibWVtYmVyOmdldERldGFpbHMiLCJtZW1iZXI6aW1wb3J0IiwibWVtYmVyOmxpc3QiLCJtZWRpYUxpYnJhcnk6bGlzdCIsIm1lZGlhTGlicmFyeTpnZXQiLCJtZWRpYUxpYnJhcnk6ZGVsZXRlIiwibWVkaWFMaWJyYXJ5OmNyZWF0ZSIsImxvZzpsaXN0IiwiaW50ZWdyYXRpb246dXBkYXRlIiwiaW50ZWdyYXRpb246bGlzdCIsImludGVncmF0aW9uOmdldCIsImludGVncmF0aW9uOmNyZWF0ZSIsImZpbGU6d2FHZXQiLCJmaWxlOmdldCIsImZpbGU6YWRtaW4iLCJkYXRhU291cmNlOnVwZGF0ZURvYyIsImRhdGFTb3VyY2U6dXBkYXRlRGF0YXNvdXJjZSIsImRhdGFTb3VyY2U6bGlzdERvY3MiLCJkYXRhU291cmNlOmxpc3REYXRhc291cmNlcyIsImRhdGFTb3VyY2U6aW1wb3J0RGF0YXNvdXJjZSIsImRhdGFTb3VyY2U6Z2V0RG9jIiwiZGF0YVNvdXJjZTpleHBvcnREYXRhc291cmNlIiwiZGF0YVNvdXJjZTpkZWxldGVEb2MiLCJkYXRhU291cmNlOmRlbGV0ZURhdGFzb3VyY2UiLCJkYXRhU291cmNlOmNyZWF0ZURvYyIsImRhdGFTb3VyY2U6Y3JlYXRlRGF0YXNvdXJjZSIsImRhc2hib2FyZDpsaXN0V2hhdHNhcHBBbmFseXRpY3MiLCJkYXNoYm9hcmQ6bGlzdFVzZXJzIiwiZGFzaGJvYXJkOmxpc3RUaWNrZXRpbmciLCJkYXNoYm9hcmQ6bGlzdE5scEFuYWx5dGljcyIsImRhc2hib2FyZDpsaXN0Q29tbWVudFJlcGx5IiwiZGFzaGJvYXJkOmxpc3RBc3NpZ25tZW50IiwiY2hhbm5lbDp1cGRhdGVUcmVlU2V0dGluZ3MiLCJjaGF0OmV4cG9ydCIsImNvbmRpdGlvbjpjcmVhdGUiLCJjb25kaXRpb246ZGVsZXRlIiwiY29uZGl0aW9uOnVwZGF0ZSIsImNvbnZlcnNhdGlvbjpyZWFkIiwiZGFzaGJvYXJkOmV4cG9ydEFuYWx5dGljcyIsImRhc2hib2FyZDpleHBvcnRVc2VycyIsImRhc2hib2FyZDpsaXN0QWdlbnRzIiwiZGFzaGJvYXJkOmxpc3RBbmFseXRpY3MiLCJjaGFubmVsOnVwZGF0ZVBsYXRmb3JtU2V0dGluZ3MiLCJjaGFubmVsOnVwZGF0ZVBsYXRmb3JtSW5mbyIsImNoYW5uZWw6dXBkYXRlTGl2ZUNoYXRTZXR0aW5ncyIsImNoYW5uZWw6dXBkYXRlRW52aXJvbm1lbnRJbmZvIiwiY2hhbm5lbDp1cGRhdGVEZXRhaWwiLCJjaGFubmVsOnVwZGF0ZUJyb2FkY2FzdEdyb3VwU2V0dGluZ3MiLCJjaGFubmVsOnVwZGF0ZUJhc2ljSW5mbyIsImNoYW5uZWw6dXBkYXRlQXZhaWxhYmlsaXRpZXMiLCJjaGFubmVsOmxpc3QiLCJjaGFubmVsOmdldFRyZWVTZXR0aW5ncyIsImNoYW5uZWw6Z2V0UGxhdGZvcm1TZXR0aW5ncyIsImNoYW5uZWw6Z2V0UGxhdGZvcm1JbmZvIiwiY2hhbm5lbDpnZXRMaXZlQ2hhdFNldHRpbmdzIiwiY2hhbm5lbDpkZWxldGVFbnZpcm9ubWVudCIsImNoYW5uZWw6Z2V0QXZhaWxhYmlsaXRpZXMiLCJjaGFubmVsOmdldEJhc2ljSW5mbyIsImNoYW5uZWw6Z2V0QnJvYWRjYXN0R3JvdXBTZXR0aW5ncyIsImNoYW5uZWw6Z2V0RGV0YWlscyIsImNoYW5uZWw6Z2V0RW52aXJvbm1lbnRJbmZvIiwiY2hhbm5lbDpjcmVhdGVDaGFubmVsIiwiY2hhbm5lbDpjcmVhdGVFbnZpcm9ubWVudCIsImNoYW5uZWw6ZGVsZXRlQ2hhbm5lbCIsImJvdGJ1aWxkZXI6cmVhZCIsImJvdGJ1aWxkZXI6bWFuYWdlIiwiYm90OnNlbmRSZXNwb25zZXMiLCJib3Q6cmVkaXJlY3RNZW1iZXJUb05vZGUiLCJib3Q6YWRtaW4iLCJhdWRpdFRyYWlsOmxpc3QiLCJiYWNrZ3JvdW5kVGFzazpnZXQiLCJiYWNrZ3JvdW5kVGFzazpsaXN0IiwiYmlsbGluZzpjcmVhdGVTdWJzY3JpcHRpb24iLCJiaWxsaW5nOmRlbGV0ZVN1YnNjcmlwdGlvbiIsImJpbGxpbmc6Z2V0U3Vic2NyaXB0aW9uIiwiYmlsbGluZzpsaXN0SW52b2ljZXMiLCJiaWxsaW5nOnVwZGF0ZVN1YnNjcmlwdGlvbiIsImF1ZGllbmNlOnVwZGF0ZSIsImF1ZGllbmNlOnJlYWQiLCJhdWRpZW5jZTpsaXN0IiwiYXVkaWVuY2U6Z2V0IiwiYXVkaWVuY2U6ZGVsZXRlIiwiYXVkaWVuY2U6Y3JlYXRlIiwiYXR0YWNobWVudElkOmxpc3QiLCJhcHBJbnRlZ3JhdGlvbjpnZXQiLCJhcHBJbnRlZ3JhdGlvbjpsaXN0IiwiYXBwSW50ZWdyYXRpb246dXBkYXRlIiwiYXBwU2V0dGluZ3M6Z2V0IiwiYXBwU2V0dGluZ3M6dXBkYXRlIiwiYXNzaWdubWVudDpsaXN0IiwiYXR0YWNobWVudElkOmNyZWF0ZSJdLCJqdGkiOiIwNDJiZDUxNC0zOTkyLTVmMmEtOTY2NS0wNGU4NTUwYzQ5MmQiLCJpc3MiOiI2NDU4YTRhZTNiZWIwMTAxMjcwOWI3ZjIiLCJpYXQiOjE2ODQwNjYxMDYyMzh9.Kip5h5leVtDojhakyroL2Rh9lzBt7QF-KCSuov9zhIo'
+            url = "https://bot.api.woztell.com/sendResponses?accessToken=" + token
+            channel_id = '645bf628d76ad166d9fae864'
+            if box:
+                print('the message to send',box)
+                clean_message = box
+                if isinstance(clean_message, str):
+                    # Strip outer <p> tags if they exist
+                    clean_message = re.sub(r'^<p>(.*?)</p>$', r'\1', clean_message)
+                    # Also handle multiple paragraphs by replacing inner <p> tags with line breaks
+                    clean_message = re.sub(r'</p>\s*<p>', '\n', clean_message)
+                    # Remove any remaining <p> or </p> tags
+                    clean_message = re.sub(r'</?p>', '', clean_message)
+                    print('clean message:', clean_message)
+                    phone = f"2{rec.lead_phone_no}"
+                response = {
+                    "channelId": channel_id,
+                    "recipientId": phone,
+                    "response": [
+                        {
+                            "type": "TEXT",
+                            "text": clean_message
+                        }
+                    ]
+                }
+                requests.post(url, json=response)
+                rec.write({
+
+                    'chat_history': [(0, 0, {
+                        'agent': box,
+                        'timestamp': fields.Datetime.now(),
+                        "is_send_by_user": True
+                    })]
+                })
+            if rec.json_msg:
+                template_json = json.loads(rec.json_msg)
+                print('template json',template_json)
+                phone = f"2{rec.lead_phone_no}"
+                response_data = {
+                    "channelId": channel_id,
+                    "recipientId": phone,
+                    "response": [template_json]
+                }
+                print('response',response_data)
+
+                requests.post(url, json=response_data)
+                rec.write({
+
+                    'chat_history': [(0, 0, {
+                        'agent': rec.html_preview,
+                        'timestamp': fields.Datetime.now(),
+                        "is_send_by_user": True
+                    })]
+                })
+            box =False
+            rec.template =False
 
     @api.depends('chat_history')
     def chat_interface(self):
@@ -195,7 +288,7 @@ class IncomingLeads(models.Model):
                         html.append(f'''
                             <div class="message-wrapper assistant-message">
                                 <div class="avatar">
-                                    <img src="/booking/static/src/img/bot-avatar.png" alt="Assistant"/>
+                                    <img src="/novecare_agent/static/src/img/avatar.png" alt="Assistant"/>
                                 </div>
                                 <div class="message">
                                     <div class="wp-message-agent-name">Bot</div>
@@ -302,3 +395,12 @@ class Medications(models.Model):
 class FamilyHistory(models.Model):
     _name = 'eval.family.history.model'
     name = fields.Char(string="Family History")
+
+
+class CallDispo(models.Model):
+    _name = 'call.dispo'
+
+    name = fields.Char(string="Call Dispo")
+    incoming = fields.Many2one('incoming.leads')
+    timestamp = fields.Datetime(string='Timestamp', default=fields.Datetime.now)
+    partner_id = fields.Many2one('res.users', string='Agent Who Made The Call')

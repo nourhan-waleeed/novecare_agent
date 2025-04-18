@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'NoveCare',
+    'name': 'NovaCare',
     'author': 'Super Team',
     'category': 'Crm, Products',
     'depends': ['base', 'mail', 'contacts', 'crm', 'website'],
@@ -15,6 +15,7 @@
         'views/instagram_template.xml',
         'views/snapchat_template.xml',
         'views/tiktok_template.xml',
+        'views/contacts_view.xml',
         'views/menus.xml',
 
     ],
@@ -26,6 +27,7 @@
         'web.assets_backend': [
             '/novecare_agent/static/src/scss/crm_leads.scss',
             '/novecare_agent/static/src/scss/appointment_styles.scss',
+            '/novecare_agent/static/src/js/chat_dashboard.js',
         ],
     },
 }

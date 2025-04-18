@@ -4,32 +4,34 @@
     <data>
 
         <menuitem id="novecare_menu"
-                  name="NoveCare"
+                  name="NovaCare"
                   web_icon="novecare_agent/static/src/img/icon.png"
                   sequence="10"/>
 
+<!--        CHAT DASHBOARD-->
+        <menuitem id="menu_chat_dashboard" name="Chat Dashboard" parent="novecare_menu" action="action_chat_dashboard" sequence="1"/>
+<!--        INCOMING-->
+        <menuitem id="menu_incoming_main" name="Incoming" parent="novecare_menu" sequence="2"/>
+                <menuitem id="menu_incoming_leads"
+                          name="Lead Journey"
+                          parent="menu_incoming_main"
+                          action="action_incoming_leads"
+                          sequence="10"/>
+                <menuitem id="menu_segments"
+                          name="Segments"
+                          parent="menu_incoming_main"
+                          action="action_segments"
+                          sequence="11"/>
 
-
-        <menuitem id="menu_incoming_main"
-                  name="Incoming"
-                  parent="novecare_menu"
-                  sequence="1"/>
-        <menuitem id="menu_incoming_leads"
-                  name="Lead Journey"
-                  parent="menu_incoming_main"
-                  action="action_incoming_leads"
-                  sequence="10"/>
-        <menuitem id="menu_segments"
-                  name="Segments"
-                  parent="menu_incoming_main"
-                  action="action_segments"
-                  sequence="11"/>
-
+            <!--APPOINTMENTS-->
     <menuitem id="menu_appointment" name="Appointments" parent="novecare_menu" action="action_appointment" sequence="3"/>
-    <menuitem id="menu_configuration" name="Configuration" parent="novecare_menu"  sequence="4"/>
 
 
-    <menuitem id="menu_message_template" name="Message Templates" parent="menu_configuration" action="action_message_template" sequence="1"/>
+
+            <!--       CONFIGURATION-->
+    <menuitem id="menu_configuration" name="Configuration" parent="novecare_menu"  sequence="10"/>
+            <menuitem id="menu_message_template" name="Message Templates" parent="menu_configuration" action="action_message_template" sequence="1"/>
+            <menuitem id="menu_call_dispo" name="Call Dispositions" parent="menu_configuration" action="action_call_dispo" sequence="2"/>
 
     </data>
 

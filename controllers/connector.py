@@ -34,45 +34,61 @@ class WhatsappWoztell(http.Controller):
         if data['type'] == 'TEXT':
             print('phone',data['from'][1:])
             lead = request.env['incoming.leads'].search([('lead_phone_no','=',data['from'][1:])],limit=1)
-            if lead and not lead.takeover:
+            if lead:
+                if not lead.takeover:
+                    # LEAD AND AI IS TALKING
 
-                url = "http://62.146.183.67:6565/ask"
-                print('--------------------into ask ai')
-                payload = {
-                    "question": data['data']['text'],
-                    "phone_number":data['from']
-                }
-                response = requests.post(url, json=payload)
-                response.raise_for_status()
-
-                answer = response.json().get('answer')
-                print('answer', answer)
-
-                if answer:
-                    formatted_answer = self.format_text(answer)
-
-                    to_woztell = {
-                        "channelId": channel_id,
-                        "recipientId": lead.lead_phone_no,
-                        "response": [
-                            {
-                                "type": "TEXT",
-                                "text": formatted_answer
-                            }
-                        ]
+                    url = "http://62.146.183.67:6565/ask"
+                    print('--------------------into ask ai')
+                    payload = {
+                        "question": data['data']['text'],
+                        "phone_number":data['from']
                     }
-                    response = requests.post(woztell_url, json=to_woztell)
+                    response = requests.post(url, json=payload)
                     response.raise_for_status()
-                    print('chat was found',lead)
-                    lead.write({
 
+                    answer = response.json().get('answer')
+                    print('answer', answer)
+
+                    if answer:
+                        formatted_answer = self.format_text(answer)
+
+                        to_woztell = {
+                            "channelId": channel_id,
+                            "recipientId": lead.lead_phone_no,
+                            "response": [
+                                {
+                                    "type": "TEXT",
+                                    "text": formatted_answer
+                                }
+                            ]
+                        }
+                        response = requests.post(woztell_url, json=to_woztell)
+                        response.raise_for_status()
+                        print('chat was found',lead)
+                        lead.write({
+
+                            'chat_history': [(0, 0, {
+                                'lead': data['data']['text'],
+                                'agent': formatted_answer,
+                                'timestamp': fields.Datetime.now(),
+                                "is_send_by_user": False
+
+                            })]
+                        })
+
+
+                if lead.takeover:
+                    # LEAD AND AGENT HAS TAKEN OVER THE CHAT
+                    lead.write({
                         'chat_history': [(0, 0, {
-                            'lead': data['data']['text'],
-                            'agent': formatted_answer,
-                            'timestamp': fields.Datetime.now(),
-                            "is_send_by_user": False
+                            'lead':  data['data']['text'],
+                            'agent': False,
 
                         })]
                     })
 
-
+            else:
+                #META MESSAGES: AI IS TALKING AND ADMIN CAN SEE WHAT ARE THEY SAYING IN CHAT DASHBOARD
+                pass
+                # contact = request.env['chat.dashboard'].create({})
